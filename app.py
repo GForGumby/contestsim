@@ -15,7 +15,7 @@ def generate_projections(medians, std_devs, num_simulations):
 
 @jit(nopython=True)
 def get_payout(rank):
-     if rank == 1:
+    if rank == 1:
         return 5000.00
     elif rank == 2:
         return 2500.00
