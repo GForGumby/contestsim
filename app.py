@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from numba import jit
+from numba import jit, prange
 
-@jit(nopython=True)
-def generate_projection(median, std_dev):
-    fluctuation = np.random.uniform(-0.01, 0.01) * median
-    return max(0, np.random.normal(median, std_dev) + fluctuation)
+@jit(nopython=True, parallel=True)
+def generate_projections(medians, std_devs, num_simulations):
+    fluctuations = np.random.uniform(-0.01, 0.01, (num_simulations, len(medians))) * medians
+    return np.maximum(0, np.random.normal(medians, std_devs, (num_simulations, len(medians))) + fluctuations)
 
 @jit(nopython=True)
 def get_payout(rank):
@@ -54,57 +54,49 @@ def get_payout(rank):
         return 10.00
     else:
         return 0.00
-def prepare_draft_results(draft_results_df):
+
+@jit(nopython=True, parallel=True)
+def simulate_team_projections(draft_results, projections, proj_indices, num_simulations):
+    num_teams = draft_results.shape[0]
+    total_payouts = np.zeros(num_teams)
+
+    for sim in prange(num_simulations):
+        total_points = np.zeros(num_teams)
+        for i in range(num_teams):
+            for j in range(6):
+                player_index = proj_indices[draft_results[i, j]]
+                if player_index != -1:
+                    total_points[i] += projections[sim, player_index]
+
+        ranks = np.argsort(np.argsort(-total_points)) + 1
+        payouts = np.array([get_payout(rank) for rank in ranks])
+        total_payouts += payouts
+
+    return total_payouts / num_simulations
+
+def run_parallel_simulations(num_simulations, draft_results_df, projection_lookup):
     teams = draft_results_df['Team'].unique()
     num_teams = len(teams)
     draft_results = np.empty((num_teams, 6), dtype='U50')
 
     for idx, team in enumerate(teams):
         team_players = draft_results_df[draft_results_df['Team'] == team]
-        for i in range(1, 7):
-            if i <= len(team_players):
-                draft_results[idx, i - 1] = f"{team_players.iloc[i - 1]['G']}"
+        for i in range(6):
+            if i < len(team_players):
+                draft_results[idx, i] = team_players.iloc[i]['G']
             else:
-                draft_results[idx, i - 1] = "N/A"  # Placeholder for missing players
+                draft_results[idx, i] = "N/A"
 
-    return draft_results, teams
-
-def simulate_team_projections(draft_results, projection_lookup, num_simulations):
-    num_teams = draft_results.shape[0]
-    total_payouts = np.zeros(num_teams)
-
-    for sim in range(num_simulations):
-        total_points = np.zeros(num_teams)
-        for i in range(num_teams):
-            for j in range(6):  # Loop through all 6 players
-                player_name = draft_results[i, j]
-                if player_name in projection_lookup:
-                    proj, projsd = projection_lookup[player_name]
-                    simulated_points = generate_projection(proj, projsd)
-                    total_points[i] += simulated_points
-
-        # Rank teams
-        ranks = total_points.argsort()[::-1].argsort() + 1
-
-        # Assign payouts and accumulate them
-        payouts = np.array([get_payout(rank) for rank in ranks])
-        total_payouts += payouts
-
-    # Calculate average payout per team
-    avg_payouts = total_payouts / num_simulations
-    return avg_payouts
-
-def run_parallel_simulations(num_simulations, draft_results_df, projection_lookup):
-    draft_results, teams = prepare_draft_results(draft_results_df)
-    avg_payouts = simulate_team_projections(draft_results, projection_lookup, num_simulations)
+    player_names = list(projection_lookup.keys())
+    proj_indices = {name: i for i, name in enumerate(player_names)}
+    proj_indices = {name: proj_indices.get(name, -1) for name in np.unique(draft_results)}
     
-    # Prepare final results
-    final_results = pd.DataFrame({
-        'Team': teams,
-        'Average_Payout': avg_payouts
-    })
+    medians, std_devs = zip(*[projection_lookup.get(name, (0, 0)) for name in player_names])
+    projections = generate_projections(np.array(medians), np.array(std_devs), num_simulations)
+
+    avg_payouts = simulate_team_projections(draft_results, projections, proj_indices, num_simulations)
     
-    return final_results
+    return pd.DataFrame({'Team': teams, 'Average_Payout': avg_payouts})
 
 def main():
     st.title("Fantasy Football Draft Simulator")
@@ -128,8 +120,21 @@ def main():
         st.subheader("Sample of loaded draft results:")
         st.write(draft_results_df.head())
 
+        # Check and select correct column names
+        proj_columns = projections_df.columns.tolist()
+        st.subheader("Select columns for projections:")
+        name_col = st.selectbox("Select column for player names", proj_columns)
+        proj_col = st.selectbox("Select column for projections", proj_columns)
+        projsd_col = st.selectbox("Select column for projection standard deviations", proj_columns)
+
         # Create projection lookup dictionary
-        projection_lookup = dict(zip(projections_df['name'], zip(projections_df['proj'], projections_df['projsd'])))
+        try:
+            projection_lookup = dict(zip(projections_df[name_col], 
+                                         zip(projections_df[proj_col].astype(float), 
+                                             projections_df[projsd_col].astype(float))))
+        except ValueError as e:
+            st.error(f"Error creating projection lookup: {e}. Please ensure the selected columns contain valid numeric data.")
+            return
 
         # Input for number of simulations
         num_simulations = st.number_input("Number of simulations to run", min_value=100, max_value=100000, value=10000, step=100)
@@ -138,7 +143,11 @@ def main():
         if st.button("Run Simulations"):
             # Run simulations
             with st.spinner('Running simulations...'):
-                final_results = run_parallel_simulations(num_simulations, draft_results_df, projection_lookup)
+                try:
+                    final_results = run_parallel_simulations(num_simulations, draft_results_df, projection_lookup)
+                except Exception as e:
+                    st.error(f"An error occurred during simulation: {e}")
+                    return
 
             # Display results
             st.subheader("Simulation Results:")
