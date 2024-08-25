@@ -2,16 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from numba import jit, prange
-from numba.np.random import randn, rand
 
-@jit(nopython=True, parallel=True)
-def generate_projections(medians, std_devs, num_simulations):
-    result = np.empty((num_simulations, len(medians)))
-    for i in prange(num_simulations):
-        fluctuations = rand(len(medians)) * 0.02 - 0.01  # Uniform between -0.01 and 0.01
-        projections = medians + randn(len(medians)) * std_devs + fluctuations * medians
-        result[i] = np.maximum(0, projections)
-    return result
+@jit(nopython=True)
+def generate_projection(median, std_dev):
+    fluctuation = np.random.uniform(-0.01, 0.01) * median
+    return max(0, np.random.normal(median, std_dev) + fluctuation)
 
 @jit(nopython=True)
 def get_payout(rank):
@@ -60,18 +55,19 @@ def get_payout(rank):
     else:
         return 0.00
 
-@jit(nopython=True, parallel=True)
-def simulate_team_projections(draft_results, projections, proj_indices, num_simulations):
+@jit(nopython=True)
+def simulate_team_projections(draft_results, projection_lookup, num_simulations):
     num_teams = draft_results.shape[0]
     total_payouts = np.zeros(num_teams)
 
-    for sim in prange(num_simulations):
+    for _ in range(num_simulations):
         total_points = np.zeros(num_teams)
         for i in range(num_teams):
             for j in range(6):
-                player_index = proj_indices[draft_results[i, j]]
-                if player_index != -1:
-                    total_points[i] += projections[sim, player_index]
+                player_name = draft_results[i, j]
+                if player_name in projection_lookup:
+                    proj, projsd = projection_lookup[player_name]
+                    total_points[i] += generate_projection(proj, projsd)
 
         ranks = np.argsort(np.argsort(-total_points)) + 1
         payouts = np.array([get_payout(rank) for rank in ranks])
@@ -92,14 +88,7 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
             else:
                 draft_results[idx, i] = "N/A"
 
-    player_names = list(projection_lookup.keys())
-    proj_indices = {name: i for i, name in enumerate(player_names)}
-    proj_indices = {name: proj_indices.get(name, -1) for name in np.unique(draft_results)}
-    
-    medians, std_devs = zip(*[projection_lookup.get(name, (0, 0)) for name in player_names])
-    projections = generate_projections(np.array(medians), np.array(std_devs), num_simulations)
-
-    avg_payouts = simulate_team_projections(draft_results, projections, proj_indices, num_simulations)
+    avg_payouts = simulate_team_projections(draft_results, projection_lookup, num_simulations)
     
     return pd.DataFrame({'Team': teams, 'Average_Payout': avg_payouts})
 
