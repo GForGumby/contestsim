@@ -11,13 +11,49 @@ def generate_projection(median, std_dev):
 @jit(nopython=True)
 def get_payout(rank):
     if rank == 1:
-        return 100000.00
+        return 5000.00
     elif rank == 2:
-        return 35000.00
-    # ... (rest of your payout structure)
+        return 2500.00
+    elif rank == 3:
+        return 1250.00
+    elif rank == 4:
+        return 750.00
+    elif rank == 5:
+        return 600.00
+    elif 6 <= rank <= 10:
+        return 500.00
+    elif 11 <= rank <= 15:
+        return 400.00
+    elif 16 <= rank <= 20:
+        return 300.00
+    elif 21 <= rank <= 25:
+        return 250.00
+    elif 26 <= rank <= 30:
+        return 200.00
+    elif 31 <= rank <= 35:
+        return 150.00
+    elif 36 <= rank <= 40:
+        return 100.00
+    elif 41 <= rank <= 45:
+        return 75.00
+    elif 46 <= rank <= 50:
+        return 60.00
+    elif 51 <= rank <= 55:
+        return 50.00
+    elif 56 <= rank <= 85:
+        return 40.00
+    elif 86 <= rank <= 135:
+        return 30.00
+    elif 136 <= rank <= 210:
+        return 25.00
+    elif 211 <= rank <= 325:
+        return 20.00
+    elif 326 <= rank <= 505:
+        return 15.00
+    elif 506 <= rank <= 2495:
+        return 10.00
     else:
         return 0.00
-
 def prepare_draft_results(draft_results_df):
     teams = draft_results_df['Team'].unique()
     num_teams = len(teams)
