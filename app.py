@@ -2,15 +2,20 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from numba import jit, prange
+from numba.np.random import randn, rand
 
 @jit(nopython=True, parallel=True)
 def generate_projections(medians, std_devs, num_simulations):
-    fluctuations = np.random.uniform(-0.01, 0.01, (num_simulations, len(medians))) * medians
-    return np.maximum(0, np.random.normal(medians, std_devs, (num_simulations, len(medians))) + fluctuations)
+    result = np.empty((num_simulations, len(medians)))
+    for i in prange(num_simulations):
+        fluctuations = rand(len(medians)) * 0.02 - 0.01  # Uniform between -0.01 and 0.01
+        projections = medians + randn(len(medians)) * std_devs + fluctuations * medians
+        result[i] = np.maximum(0, projections)
+    return result
 
 @jit(nopython=True)
 def get_payout(rank):
-    if rank == 1:
+     if rank == 1:
         return 5000.00
     elif rank == 2:
         return 2500.00
@@ -164,3 +169,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
