@@ -56,7 +56,7 @@ def get_payout(rank):
         return 0.00
 
 @jit(nopython=True)
-def simulate_team_projections(draft_results, projection_lookup, num_simulations):
+def simulate_team_projections(draft_results, projections, proj_indices, num_simulations):
     num_teams = draft_results.shape[0]
     total_payouts = np.zeros(num_teams)
 
@@ -64,9 +64,9 @@ def simulate_team_projections(draft_results, projection_lookup, num_simulations)
         total_points = np.zeros(num_teams)
         for i in range(num_teams):
             for j in range(6):
-                player_name = draft_results[i, j]
-                if player_name in projection_lookup:
-                    proj, projsd = projection_lookup[player_name]
+                player_index = proj_indices[draft_results[i, j]]
+                if player_index != -1:
+                    proj, projsd = projections[player_index]
                     total_points[i] += generate_projection(proj, projsd)
 
         ranks = np.argsort(np.argsort(-total_points)) + 1
@@ -88,7 +88,18 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
             else:
                 draft_results[idx, i] = "N/A"
 
-    avg_payouts = simulate_team_projections(draft_results, projection_lookup, num_simulations)
+    # Convert projection_lookup to NumPy arrays
+    player_names = np.array(list(projection_lookup.keys()))
+    projections = np.array(list(projection_lookup.values()))
+    
+    # Create a dictionary to map player names to indices
+    name_to_index = {name: i for i, name in enumerate(player_names)}
+    
+    # Create an array of indices for the draft results
+    proj_indices = np.array([name_to_index.get(name, -1) for name in draft_results.flat])
+    proj_indices = proj_indices.reshape(draft_results.shape)
+
+    avg_payouts = simulate_team_projections(draft_results, projections, proj_indices, num_simulations)
     
     return pd.DataFrame({'Team': teams, 'Average_Payout': avg_payouts})
 
