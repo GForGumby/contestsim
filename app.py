@@ -4,10 +4,13 @@ import numpy as np
 from numba import jit, prange
 from st_paywall import add_auth
 
+st.write(TO MANAGE YOUR SUBSCRIPTION GO HERE https://billing.stripe.com/p/login/3cs9Cq9F83adcpO000)
+st.write(Please watch the entirety of this video explaining the product before purchasing. I am available on twitter @GumbyUD for any questions or concerns about the product.)
+
 # Add paywall
 add_auth(required=True)
 
-st.title("Fantasy Football Draft Simulator")
+st.title("GUMBY SIMS- The best product to raise your game in Underdog daily games")
 
 # Function to simulate a single draft
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.95):
