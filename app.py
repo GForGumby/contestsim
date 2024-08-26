@@ -2,27 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from numba import jit, prange
-import stripe
-
-# Set your Stripe API key
-stripe.api_key = st.secrets["stripe_api_key_test"] if st.secrets["testing_mode"] else st.secrets["stripe_api_key"]
-
-def create_checkout_session():
-    try:
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[{
-                'price': st.secrets["stripe_price_id"],
-                'quantity': 1,
-            }],
-            mode='payment',
-            success_url=st.secrets["redirect_url_test"] if st.secrets["testing_mode"] else st.secrets["redirect_url"],
-            cancel_url=st.secrets["redirect_url_test"] if st.secrets["testing_mode"] else st.secrets["redirect_url"],
-        )
-        return checkout_session
-    except Exception as e:
-        st.error(f"An error occurred: {str(e)}")
-        return None
+from st_paywall import add_auth
 
 @jit(nopython=True)
 def generate_projection(median, std_dev):
@@ -131,14 +111,8 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
 def main():
     st.title("Fantasy Football Draft Simulator")
 
-    # Check if user has paid
-    if not st.session_state.get("paid", False):
-        st.write("Please pay to access the Fantasy Football Draft Simulator.")
-        if st.button("Pay Now"):
-            session = create_checkout_session()
-            if session:
-                st.write(f"[Proceed to payment](https://checkout.stripe.com/pay/{session.id})")
-        return  # Exit the function if payment is not made
+    # Add paywall
+    add_auth(required=True)
 
     # File uploader for projections
     projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv")
