@@ -12,6 +12,9 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 
+# Add paywall
+    add_auth(required=True)
+
 # Function to simulate a single draft
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.95):
     df_copy = df.copy()
@@ -120,8 +123,6 @@ if uploaded_file is not None:
     num_rounds = st.number_input("Number of rounds", min_value=1, value=6)
     team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.95)
 
-     # Add paywall
-    add_auth(required=True)
     
     if st.button("Run Simulation"):
         all_drafts = run_simulations(df, num_simulations, num_teams, num_rounds, team_bonus)
