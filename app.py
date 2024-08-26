@@ -5,32 +5,6 @@ from numba import jit, prange
 import stripe
 import os
 
-# Set your Stripe API key
-stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
-
-# Function to create a Stripe Checkout session
-def create_checkout_session(price_id):
-    try:
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[{
-                'price': price_1Pr004RouFeroleDRDHOdJAb,
-                'quantity': 1,
-            }],
-            mode='payment',
-            success_url='https://contestsim-m5htxcxuq9tdwvjtqk3sww.streamlit.app/success',
-            cancel_url='https://contestsim-m5htxcxuq9tdwvjtqk3sww.streamlit.app/cancel',
-        )
-        return checkout_session
-    except Exception as e:
-        st.error(f"An error occurred: {str(e)}")
-        return None
-
-# Function to check if a user has paid
-def has_paid():
-    # In a real app, you'd check a database to see if the user has paid
-    # For this example, we'll use a session state variable
-    return st.session_state.get('paid', False)
 
 @jit(nopython=True)
 def generate_projection(median, std_dev):
@@ -137,6 +111,33 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
 
 def main():
     st.title("Fantasy Football Draft Simulator")
+
+    # Set your Stripe API key
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+
+# Function to create a Stripe Checkout session
+def create_checkout_session(price_id):
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price': price_1Pr004RouFeroleDRDHOdJAb,
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url='https://contestsim-m5htxcxuq9tdwvjtqk3sww.streamlit.app/success',
+            cancel_url='https://contestsim-m5htxcxuq9tdwvjtqk3sww.streamlit.app/cancel',
+        )
+        return checkout_session
+    except Exception as e:
+        st.error(f"An error occurred: {str(e)}")
+        return None
+
+# Function to check if a user has paid
+def has_paid():
+    # In a real app, you'd check a database to see if the user has paid
+    # For this example, we'll use a session state variable
+    return st.session_state.get('paid', False)
 
     # File uploader for projections
     projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv")
