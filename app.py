@@ -207,7 +207,6 @@ def get_payout(rank):
         return 10.00
     else:
         return 0.00
-
 def prepare_draft_results(draft_results_df):
     teams = draft_results_df['Team'].unique()
     num_teams = len(teams)
