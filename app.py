@@ -4,16 +4,10 @@ import numpy as np
 from numba import jit, prange
 from st_paywall import add_auth
 
-import streamlit as st
-
-
-st.title("Projections")
-import pandas as pd
-import numpy as np
-import streamlit as st
-
 # Add paywall
 add_auth(required=True)
+
+st.title("Fantasy Football Draft Simulator")
 
 # Function to simulate a single draft
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.95):
@@ -21,19 +15,16 @@ def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=
     df_copy['Simulated ADP'] = np.random.normal(df_copy['adp'], df_copy['adpsd'])
     df_copy.sort_values('Simulated ADP', inplace=True)
     
-    # Initialize the teams
     teams = {f'Team {i + starting_team_num}': [] for i in range(num_teams)}
     team_positions = {f'Team {i + starting_team_num}': {"QB": 0, "RB": 0, "WR": 0, "TE": 0, "FLEX": 0} for i in range(num_teams)}
     teams_stack = {f'Team {i + starting_team_num}': [] for i in range(num_teams)}
     
-    # Snake draft order
     for round_num in range(num_rounds):
         draft_order = list(range(num_teams)) if round_num % 2 == 0 else list(range(num_teams))[::-1]
         for pick_num in draft_order:
             if not df_copy.empty:
                 team_name = f'Team {pick_num + starting_team_num}'
                 
-                # Filter players based on positional requirements
                 draftable_positions = []
                 if team_positions[team_name]["QB"] < 1:
                     draftable_positions.append("QB")
@@ -54,7 +45,6 @@ def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=
                 if df_filtered.empty:
                     continue
                 
-                # Adjust Simulated ADP based on team stacking
                 df_filtered['Adjusted ADP'] = df_filtered.apply(
                     lambda x: x['Simulated ADP'] * team_bonus 
                     if x['team'] in teams_stack[team_name] else x['Simulated ADP'],
@@ -78,83 +68,13 @@ def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=
     
     return teams
 
-# Function to run multiple simulations
 def run_simulations(df, num_simulations=10, num_teams=6, num_rounds=6, team_bonus=.95):
     all_drafts = []
-
     for sim_num in range(num_simulations):
         starting_team_num = sim_num * num_teams + 1
         draft_result = simulate_draft(df, starting_team_num, num_teams, num_rounds, team_bonus)
         all_drafts.append(draft_result)
-    
     return all_drafts
-
-# Streamlit app
-st.title('Week 0 Test BR Draft Sim')
-
-# Download link for sample CSV
-sample_csv_path = 'adp sheet test.csv'
-with open(sample_csv_path, 'rb') as file:
-    sample_csv = file.read()
-
-st.download_button(
-    label="Download sample CSV",
-    data=sample_csv,
-    file_name='adp_sheet_test.csv',
-    mime='text/csv',
-)
-
-# File upload
-uploaded_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
-
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-
-    # Check if player_id exists, if not, create it
-    if 'player_id' not in df.columns:
-        df['player_id'] = df.index
-    
-    st.write("Data Preview:")
-    st.dataframe(df.head())
-    
-    # Parameters for the simulation
-    num_simulations = st.number_input("Number of simulations", min_value=1, value=10)
-    num_teams = st.number_input("Number of teams", min_value=2, value=6)
-    num_rounds = st.number_input("Number of rounds", min_value=1, value=6)
-    team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.95)
-    
-    if st.button("Run Simulation"):
-        all_drafts = run_simulations(df, num_simulations, num_teams, num_rounds, team_bonus)
-
-         # Save the draft results to a DataFrame
-        draft_results = []
-        for sim_num, draft in enumerate(all_drafts):
-            for team, players in draft.items():
-                result_entry = {
-                    'Simulation': sim_num + 1,
-                    'Team': team,
-                }
-                for i, player in enumerate(players):
-                    result_entry.update({
-                        f'Player_{i+1}_Name': player['name'],
-                        f'Player_{i+1}_Position': player['position'],
-                        f'Player_{i+1}_Team': player['team']
-                    })
-                draft_results.append(result_entry)
-        
-        draft_results_df = pd.DataFrame(draft_results)
-        
-        # Display the results
-        st.dataframe(draft_results_df)
-        
-        # Download link for the results
-        csv = draft_results_df.to_csv(index=False).encode('utf-8')
-        st.download_button(
-            label="Download Draft Results",
-            data=csv,
-            file_name='draft_results_with_team_stacking_and_positions.csv',
-            mime='text/csv',
-        )
 
 @jit(nopython=True)
 def generate_projection(median, std_dev):
@@ -207,6 +127,7 @@ def get_payout(rank):
         return 10.00
     else:
         return 0.00
+
 def prepare_draft_results(draft_results_df):
     teams = draft_results_df['Team'].unique()
     num_teams = len(teams)
@@ -215,8 +136,9 @@ def prepare_draft_results(draft_results_df):
     for idx, team in enumerate(teams):
         team_players = draft_results_df[draft_results_df['Team'] == team]
         for i in range(1, 7):
-            if i <= len(team_players):
-                draft_results[idx, i - 1] = f"{team_players.iloc[i - 1]['G']}"
+            player_col = f'Player_{i}_Name'
+            if player_col in team_players.columns and i <= len(team_players):
+                draft_results[idx, i - 1] = team_players.iloc[0][player_col]
             else:
                 draft_results[idx, i - 1] = "N/A"  # Placeholder for missing players
 
@@ -236,22 +158,21 @@ def simulate_team_projections(draft_results, projection_lookup, num_simulations)
                     simulated_points = generate_projection(proj, projsd)
                     total_points[i] += simulated_points
 
-        # Rank teams
         ranks = total_points.argsort()[::-1].argsort() + 1
-
-        # Assign payouts and accumulate them
         payouts = np.array([get_payout(rank) for rank in ranks])
         total_payouts += payouts
 
-    # Calculate average payout per team
     avg_payouts = total_payouts / num_simulations
     return avg_payouts
 
 def run_parallel_simulations(num_simulations, draft_results_df, projection_lookup):
     draft_results, teams = prepare_draft_results(draft_results_df)
-    avg_payouts = simulate_team_projections(draft_results, projection_lookup, num_simulations)
     
-    # Prepare final results
+    all_players = [player for team in draft_results for player in team if player != 'N/A']
+    filtered_projection_lookup = {player: projection_lookup[player] for player in all_players if player in projection_lookup}
+    
+    avg_payouts = simulate_team_projections(draft_results, filtered_projection_lookup, num_simulations)
+    
     final_results = pd.DataFrame({
         'Team': teams,
         'Average_Payout': avg_payouts
@@ -259,52 +180,94 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
     
     return final_results
 
-def main():
-    st.title("Fantasy Football Draft Simulator")
+# Streamlit app
+sample_csv_path = 'adp sheet test.csv'
+with open(sample_csv_path, 'rb') as file:
+    sample_csv = file.read()
 
-    # File uploader for projections
-    projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv")
+st.download_button(
+    label="Download sample CSV",
+    data=sample_csv,
+    file_name='adp_sheet_test.csv',
+    mime='text/csv',
+)
+
+# File upload for ADP
+adp_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
+
+if adp_file is not None:
+    df = pd.read_csv(adp_file)
+    if 'player_id' not in df.columns:
+        df['player_id'] = df.index
     
-    # File uploader for draft results
-    draft_results_file = st.file_uploader("Choose a CSV file with draft results", type="csv")
+    st.write("ADP Data Preview:")
+    st.dataframe(df.head())
     
-    if projections_file is not None and draft_results_file is not None:
-        projections_df = pd.read_csv(projections_file)
-        draft_results_df = pd.read_csv(draft_results_file)
+    num_simulations = st.number_input("Number of simulations", min_value=1, value=10)
+    num_teams = st.number_input("Number of teams", min_value=2, value=6)
+    num_rounds = st.number_input("Number of rounds", min_value=1, value=6)
+    team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.95)
+    
+    if st.button("Run Draft Simulation"):
+        all_drafts = run_simulations(df, num_simulations, num_teams, num_rounds, team_bonus)
+        draft_results = []
+        for sim_num, draft in enumerate(all_drafts):
+            for team, players in draft.items():
+                result_entry = {
+                    'Simulation': sim_num + 1,
+                    'Team': team,
+                }
+                for i, player in enumerate(players):
+                    result_entry.update({
+                        f'Player_{i+1}_Name': player['name'],
+                        f'Player_{i+1}_Position': player['position'],
+                        f'Player_{i+1}_Team': player['team']
+                    })
+                draft_results.append(result_entry)
         
-        st.write("Projections and draft results loaded successfully!")
+        draft_results_df = pd.DataFrame(draft_results)
+        st.write("Draft Simulation Results:")
+        st.dataframe(draft_results_df)
         
-        # Display a sample of the loaded data
-        st.subheader("Sample of loaded projections:")
-        st.write(projections_df.head())
-        
-        st.subheader("Sample of loaded draft results:")
-        st.write(draft_results_df.head())
+        csv = draft_results_df.to_csv(index=False).encode('utf-8')
+        st.download_button(
+            label="Download Draft Results",
+            data=csv,
+            file_name='draft_results.csv',
+            mime='text/csv',
+        )
 
-        # Create projection lookup dictionary
-        projection_lookup = dict(zip(projections_df['name'], zip(projections_df['proj'], projections_df['projsd'])))
+# File uploaders for projections and draft results
+projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv")
+draft_results_file = st.file_uploader("Choose a CSV file with draft results", type="csv")
 
-        # Input for number of simulations
-        num_simulations = st.number_input("Number of simulations to run", min_value=100, max_value=100000, value=10000, step=100)
+if projections_file is not None and draft_results_file is not None:
+    projections_df = pd.read_csv(projections_file)
+    draft_results_df = pd.read_csv(draft_results_file)
+    
+    st.write("Projections and draft results loaded successfully!")
+    
+    st.subheader("Sample of loaded projections:")
+    st.write(projections_df.head())
+    
+    st.subheader("Sample of loaded draft results:")
+    st.write(draft_results_df.head())
 
-        # Button to start simulation
-        if st.button("Run Simulations"):
-            # Run simulations
-            with st.spinner('Running simulations...'):
-                final_results = run_parallel_simulations(num_simulations, draft_results_df, projection_lookup)
+    projection_lookup = dict(zip(projections_df['name'], zip(projections_df['proj'], projections_df['projsd'])))
 
-            # Display results
-            st.subheader("Simulation Results:")
-            st.write(final_results)
+    num_simulations = st.number_input("Number of simulations to run", min_value=100, max_value=100000, value=10000, step=100)
 
-            # Option to download results
-            csv = final_results.to_csv(index=False)
-            st.download_button(
-                label="Download results as CSV",
-                data=csv,
-                file_name="simulation_results.csv",
-                mime="text/csv",
-            )
+    if st.button("Run Projection Simulations"):
+        with st.spinner('Running simulations...'):
+            final_results = run_parallel_simulations(num_simulations, draft_results_df, projection_lookup)
 
-if __name__ == '__main__':
-    main()
+        st.subheader("Projection Simulation Results:")
+        st.write(final_results)
+
+        csv = final_results.to_csv(index=False)
+        st.download_button(
+            label="Download Projection Results as CSV",
+            data=csv,
+            file_name="projection_simulation_results.csv",
+            mime="text/csv",
+        )
