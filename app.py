@@ -137,7 +137,7 @@ if uploaded_file is not None:
                 }
                 for i, player in enumerate(players):
                     result_entry.update({
-                        f'Player_{i+1}_Name': player['name'],
+                        f'G': player['name'],
                         f'Player_{i+1}_Position': player['position'],
                         f'Player_{i+1}_Team': player['team']
                     })
