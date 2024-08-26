@@ -98,7 +98,6 @@ st.download_button(
     file_name='adp_sheet_test.csv',
     mime='text/csv',
 )
-Can you make it so that each player in the results has the column labeled "G" in the csv
 
 # File upload
 uploaded_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
