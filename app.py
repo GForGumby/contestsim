@@ -77,32 +77,28 @@ def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=
                 df_copy = df_copy.loc[df_copy['player_id'] != selected_player['player_id']]
     
     return teams
-
 # Function to run multiple simulations
 def run_simulations(df, num_simulations=10, num_teams=6, num_rounds=6, team_bonus=.95):
     all_drafts = []
-
     for sim_num in range(num_simulations):
         starting_team_num = sim_num * num_teams + 1
         draft_result = simulate_draft(df, starting_team_num, num_teams, num_rounds, team_bonus)
         all_drafts.append(draft_result)
     
     return all_drafts
-
 # Streamlit app
 st.title('Week 0 Test BR Draft Sim')
-
 # Download link for sample CSV
 sample_csv_path = 'adp sheet test.csv'
 with open(sample_csv_path, 'rb') as file:
     sample_csv = file.read()
-
 st.download_button(
     label="Download sample CSV",
     data=sample_csv,
     file_name='adp_sheet_test.csv',
     mime='text/csv',
 )
+Can you make it so that each player in the results has the column labeled "G" in the csv
 
 # File upload
 uploaded_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
