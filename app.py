@@ -188,7 +188,7 @@ with open(sample_csv_path, 'rb') as file:
 st.download_button(
     label="CFB WEEK 1 ADP TEMPLATE",
     data=sample_csv,
-    file_name='CFB WEEK 1 TEMPLATE',
+    file_name='CFB WEEK 1 TEMPLATE.csv',
     mime='text/csv',
 )
 
