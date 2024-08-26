@@ -77,21 +77,26 @@ def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=
                 df_copy = df_copy.loc[df_copy['player_id'] != selected_player['player_id']]
     
     return teams
+
 # Function to run multiple simulations
 def run_simulations(df, num_simulations=10, num_teams=6, num_rounds=6, team_bonus=.95):
     all_drafts = []
+
     for sim_num in range(num_simulations):
         starting_team_num = sim_num * num_teams + 1
         draft_result = simulate_draft(df, starting_team_num, num_teams, num_rounds, team_bonus)
         all_drafts.append(draft_result)
     
     return all_drafts
+
 # Streamlit app
-st.title('Week 0 Test BR Draft Sim')
+st.title('Fantasy Football Draft Simulator')
+
 # Download link for sample CSV
 sample_csv_path = 'adp sheet test.csv'
 with open(sample_csv_path, 'rb') as file:
     sample_csv = file.read()
+
 st.download_button(
     label="Download sample CSV",
     data=sample_csv,
@@ -99,6 +104,57 @@ st.download_button(
     mime='text/csv',
 )
 
+# File upload
+uploaded_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
+
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+
+    # Check if player_id exists, if not, create it
+    if 'player_id' not in df.columns:
+        df['player_id'] = df.index
+    
+    st.write("Data Preview:")
+    st.dataframe(df.head())
+    
+    # Parameters for the simulation
+    num_simulations = st.number_input("Number of simulations", min_value=1, value=10)
+    num_teams = st.number_input("Number of teams", min_value=2, value=6)
+    num_rounds = st.number_input("Number of rounds", min_value=1, value=6)
+    team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.95)
+    
+    if st.button("Run Simulation"):
+        all_drafts = run_simulations(df, num_simulations, num_teams, num_rounds, team_bonus)
+
+         # Save the draft results to a DataFrame
+        draft_results = []
+        for sim_num, draft in enumerate(all_drafts):
+            for team, players in draft.items():
+                result_entry = {
+                    'Simulation': sim_num + 1,
+                    'Team': team,
+                }
+                for i, player in enumerate(players):
+                    result_entry.update({
+                        f'Player_{i+1}_Name': player['name'],
+                        f'Player_{i+1}_Position': player['position'],
+                        f'Player_{i+1}_Team': player['team']
+                    })
+                draft_results.append(result_entry)
+        
+        draft_results_df = pd.DataFrame(draft_results)
+        
+        # Display the results
+        st.dataframe(draft_results_df)
+        
+        # Download link for the results
+        csv = draft_results_df.to_csv(index=False).encode('utf-8')
+        st.download_button(
+            label="Download Draft Results",
+            data=csv,
+            file_name='draft_results_with_team_stacking_and_positions.csv',
+            mime='text/csv',
+        )
 # File upload
 uploaded_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
 
