@@ -13,7 +13,7 @@ import numpy as np
 import streamlit as st
 
 # Add paywall
-    add_auth(required=True)
+add_auth(required=True)
 
 # Function to simulate a single draft
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.95):
