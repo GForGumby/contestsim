@@ -119,6 +119,9 @@ if uploaded_file is not None:
     num_teams = st.number_input("Number of teams", min_value=2, value=6)
     num_rounds = st.number_input("Number of rounds", min_value=1, value=6)
     team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.95)
+
+     # Add paywall
+    add_auth(required=True)
     
     if st.button("Run Simulation"):
         all_drafts = run_simulations(df, num_simulations, num_teams, num_rounds, team_bonus)
@@ -260,9 +263,6 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
 
 def main():
     st.title("Fantasy Football Draft Simulator")
-
-    # Add paywall
-    add_auth(required=True)
 
     # File uploader for projections
     projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv")
