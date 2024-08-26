@@ -18,8 +18,8 @@ def create_checkout_session(price_id):
                 'quantity': 1,
             }],
             mode='payment',
-            success_url=https://contestsim-m5htxcxuq9tdwvjtqk3sww.streamlit.app/ + '/success',
-            cancel_url=https://contestsim-m5htxcxuq9tdwvjtqk3sww.streamlit.app/ + '/cancel',
+            success_url='https://contestsim-m5htxcxuq9tdwvjtqk3sww.streamlit.app/success',
+            cancel_url='https://contestsim-m5htxcxuq9tdwvjtqk3sww.streamlit.app/cancel',
         )
         return checkout_session
     except Exception as e:
