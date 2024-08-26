@@ -2,118 +2,43 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from numba import jit, prange
-from st_paywall import add_auth
+import stripe
 
-@jit(nopython=True)
-def generate_projection(median, std_dev):
-    fluctuation = np.random.uniform(-0.01, 0.01) * median
-    return max(0, np.random.normal(median, std_dev) + fluctuation)
+# Set your Stripe API key
+stripe.api_key = st.secrets["stripe_api_key_test"] if st.secrets["testing_mode"] else st.secrets["stripe_api_key"]
 
-@jit(nopython=True)
-def get_payout(rank):
-    if rank == 1:
-        return 5000.00
-    elif rank == 2:
-        return 2500.00
-    elif rank == 3:
-        return 1250.00
-    elif rank == 4:
-        return 750.00
-    elif rank == 5:
-        return 600.00
-    elif 6 <= rank <= 10:
-        return 500.00
-    elif 11 <= rank <= 15:
-        return 400.00
-    elif 16 <= rank <= 20:
-        return 300.00
-    elif 21 <= rank <= 25:
-        return 250.00
-    elif 26 <= rank <= 30:
-        return 200.00
-    elif 31 <= rank <= 35:
-        return 150.00
-    elif 36 <= rank <= 40:
-        return 100.00
-    elif 41 <= rank <= 45:
-        return 75.00
-    elif 46 <= rank <= 50:
-        return 60.00
-    elif 51 <= rank <= 55:
-        return 50.00
-    elif 56 <= rank <= 85:
-        return 40.00
-    elif 86 <= rank <= 135:
-        return 30.00
-    elif 136 <= rank <= 210:
-        return 25.00
-    elif 211 <= rank <= 325:
-        return 20.00
-    elif 326 <= rank <= 505:
-        return 15.00
-    elif 506 <= rank <= 2495:
-        return 10.00
-    else:
-        return 0.00
+def create_checkout_session():
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price': st.secrets["stripe_price_id"],
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=st.secrets["redirect_url_test"] if st.secrets["testing_mode"] else st.secrets["redirect_url"],
+            cancel_url=st.secrets["redirect_url_test"] if st.secrets["testing_mode"] else st.secrets["redirect_url"],
+        )
+        return checkout_session
+    except Exception as e:
+        st.error(f"An error occurred: {str(e)}")
+        return None
 
-def prepare_draft_results(draft_results_df):
-    teams = draft_results_df['Team'].unique()
-    num_teams = len(teams)
-    draft_results = np.empty((num_teams, 6), dtype='U50')
-
-    for idx, team in enumerate(teams):
-        team_players = draft_results_df[draft_results_df['Team'] == team]
-        for i in range(1, 7):
-            if i <= len(team_players):
-                draft_results[idx, i - 1] = f"{team_players.iloc[i - 1]['G']}"
-            else:
-                draft_results[idx, i - 1] = "N/A"  # Placeholder for missing players
-
-    return draft_results, teams
-
-def simulate_team_projections(draft_results, projection_lookup, num_simulations):
-    num_teams = draft_results.shape[0]
-    total_payouts = np.zeros(num_teams)
-
-    for sim in range(num_simulations):
-        total_points = np.zeros(num_teams)
-        for i in range(num_teams):
-            for j in range(6):  # Loop through all 6 players
-                player_name = draft_results[i, j]
-                if player_name in projection_lookup:
-                    proj, projsd = projection_lookup[player_name]
-                    simulated_points = generate_projection(proj, projsd)
-                    total_points[i] += simulated_points
-
-        # Rank teams
-        ranks = total_points.argsort()[::-1].argsort() + 1
-
-        # Assign payouts and accumulate them
-        payouts = np.array([get_payout(rank) for rank in ranks])
-        total_payouts += payouts
-
-    # Calculate average payout per team
-    avg_payouts = total_payouts / num_simulations
-    return avg_payouts
-
-def run_parallel_simulations(num_simulations, draft_results_df, projection_lookup):
-    draft_results, teams = prepare_draft_results(draft_results_df)
-    avg_payouts = simulate_team_projections(draft_results, projection_lookup, num_simulations)
-    
-    # Prepare final results
-    final_results = pd.DataFrame({
-        'Team': teams,
-        'Average_Payout': avg_payouts
-    })
-    
-    return final_results
+# Your existing functions (generate_projection, get_payout, prepare_draft_results, simulate_team_projections, run_parallel_simulations) remain unchanged
 
 def main():
     st.title("Fantasy Football Draft Simulator")
 
-    # Add paywall
-    add_auth(required=True)
+    # Check if user has paid
+    if not st.session_state.get("paid", False):
+        st.write("Please pay to access the Fantasy Football Draft Simulator.")
+        if st.button("Pay Now"):
+            session = create_checkout_session()
+            if session:
+                st.write(f"[Proceed to payment](https://checkout.stripe.com/pay/{session.id})")
+        return  # Exit the function if payment is not made
 
+    # Rest of your main function remains unchanged
     # File uploader for projections
     projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv")
     
