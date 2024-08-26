@@ -4,3 +4,4 @@ streamlit
 numba
 scipy
 stripe
+st-paywall
