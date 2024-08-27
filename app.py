@@ -7,13 +7,14 @@ from st_paywall import add_auth
 st.write("TO MANAGE YOUR SUBSCRIPTION GO HERE https://billing.stripe.com/p/login/9AQ4jFeRDbHTaIMfYY")
 st.write("Please watch the entirety of this video explaining the product before purchasing (https://www.youtube.com/watch?v=tF9BU7yNdDI). I am available on twitter @GumbyUD for any questions or concerns about the product.")
 
-add_auth(required=True)
 
 
 st.title("GUMBY SIMS- The best product to raise your game in Underdog daily games. The first publicly available contest sim designed for Underdog Fantasy")
 
 
 st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
+
+add_auth(required=True)
 
 # Function to simulate a single draft
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.95):
