@@ -13,7 +13,7 @@ add_auth(required=True)
 st.title("GUMBY SIMS- The best product to raise your game in Underdog daily games")
 
 
-st.subheader("COLLEGE FOOTBALL WEEK 1 BR)
+st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
 
 # Function to simulate a single draft
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.95):
