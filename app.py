@@ -19,7 +19,7 @@ st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
 add_auth(required=True)
 
 # Function to simulate a single draft
-def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.95):
+def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.99):
     df_copy = df.copy()
     df_copy['Simulated ADP'] = np.random.normal(df_copy['adp'], df_copy['adpsd'])
     df_copy.sort_values('Simulated ADP', inplace=True)
