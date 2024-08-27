@@ -10,7 +10,7 @@ st.write("Please watch the entirety of this video explaining the product before 
 add_auth(required=True)
 
 
-st.title("GUMBY SIMS- The best product to raise your game in Underdog daily games")
+st.title("GUMBY SIMS- The best product to raise your game in Underdog daily games. The first publicly available contest sim designed for Underdog Fantasy")
 
 
 st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
