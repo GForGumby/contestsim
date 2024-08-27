@@ -5,7 +5,7 @@ from numba import jit, prange
 from st_paywall import add_auth
 
 st.write("TO MANAGE YOUR SUBSCRIPTION GO HERE https://billing.stripe.com/p/login/9AQ4jFeRDbHTaIMfYY")
-st.write("Please watch the entirety of this video explaining the product before purchasing. I am available on twitter @GumbyUD for any questions or concerns about the product.")
+st.write("Please watch the entirety of this video explaining the product before purchasing (https://www.youtube.com/watch?v=tF9BU7yNdDI). I am available on twitter @GumbyUD for any questions or concerns about the product.")
 
 add_auth(required=True)
 
