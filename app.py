@@ -9,7 +9,7 @@ st.write("Please watch the entirety of this video explaining the product before 
 
 
 
-st.title("GUMBY SIMS- The best product to raise your game in Underdog daily games. The first publicly available contest sim designed for Underdog Fantasy")
+st.title("GUMBY SIMS- The first publicly available contest sim tool on Underdog. Take your game to the next level by simming out the highest ROI lineups,  optimal exposure percentages, and chalkiest field combos. ")
 
 
 st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
