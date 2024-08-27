@@ -77,7 +77,7 @@ def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=
     
     return teams
 
-def run_simulations(df, num_simulations=10, num_teams=6, num_rounds=6, team_bonus=.95):
+def run_simulations(df, num_simulations=10, num_teams=6, num_rounds=6, team_bonus=.99):
     all_drafts = []
     for sim_num in range(num_simulations):
         starting_team_num = sim_num * num_teams + 1
@@ -215,7 +215,7 @@ if adp_file is not None:
     num_simulations = st.number_input("Number of simulations", min_value=1, value=10)
     num_teams = st.number_input("Number of teams", min_value=2, value=6)
     num_rounds = st.number_input("Number of rounds", min_value=1, value=6)
-    team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.95)
+    team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.99)
     
     if st.button("Run Draft Simulation"):
         all_drafts = run_simulations(df, num_simulations, num_teams, num_rounds, team_bonus)
