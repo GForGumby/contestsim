@@ -448,7 +448,7 @@ st.download_button(
 )
 
 # File upload for ADP
-adp_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
+adp_file = st.file_uploader("Upload your PGA ADP CSV file", type=["csv"])
 
 if adp_file is not None:
     df = pd.read_csv(adp_file)
@@ -484,7 +484,7 @@ if adp_file is not None:
         st.write("Draft Simulation Results:")
         st.dataframe(draft_results_df)
         
-        csv = draft_results_df.to_csv(index=False).encode('utf-9')
+        csv = draft_results_df.to_csv(index=False).encode('utf-8')
         st.download_button(
             label="Download Draft Results",
             data=csv,
