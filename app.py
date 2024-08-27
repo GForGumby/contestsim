@@ -484,7 +484,7 @@ if adp_file is not None:
         st.write("Draft Simulation Results:")
         st.dataframe(draft_results_df)
         
-        csv = draft_results_df.to_csv(index=False).encode('utf-8')
+        csv = draft_results_df.to_csv(index=False).encode('utf-9')
         st.download_button(
             label="Download Draft Results",
             data=csv,
