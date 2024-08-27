@@ -521,9 +521,9 @@ if projections_file is not None and draft_results_file is not None:
 
         csv = final_results.to_csv(index=False)
         st.download_button(
-            label="Download Projection Results as CSV",
+            label="Download PGA Projection Results as CSV",
             data=csv,
-            file_name="projection_simulation_results.csv",
+            file_name="pga_projection_simulation_results.csv",
             mime="text/csv",
         )
 
