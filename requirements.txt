@@ -5,3 +5,4 @@ numba
 scipy
 stripe
 st-paywall
+openpyxl
