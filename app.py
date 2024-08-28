@@ -17,7 +17,7 @@ st.write("Current supported sports: NFL, CFB, PGA.")
 
 
 # Path to your Excel file
-sample_xlsx_path = '.xlsx'
+sample_xlsx_path = 'Blank Analysis Template.xlsx'
 
 # Read the Excel file
 with open(sample_xlsx_path, 'rb') as file:
