@@ -15,6 +15,10 @@ st.write("For the team stacking bonus, use .99 if you want stack frequency to mi
 st.write("Current supported sports: NFL, CFB, PGA.")
 
 
+add_auth(required=True)
+
+
+st.write("Paste your sim results and draft results into this file for more automated analysis")
 
 # Path to your Excel file
 sample_xlsx_path = 'Blank Analysis Template.xlsx'
@@ -34,7 +38,6 @@ st.download_button(
 
 st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
 
-add_auth(required=True)
 
 # Function to simulate a single draft
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.99):
