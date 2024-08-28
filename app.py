@@ -18,7 +18,7 @@ st.write("Current supported sports: NFL, CFB, PGA.")
 add_auth(required=True)
 
 
-st.subtitle("Paste your sim results and draft results into this file for more automated analysis")
+st.subheader("Paste your sim results and draft results into this file for more automated analysis")
 
 # Path to your Excel file
 sample_xlsx_path = 'Blank Analysis Template.xlsx'
