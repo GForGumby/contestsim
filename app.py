@@ -7,7 +7,7 @@ from st_paywall import add_auth
 st.write("TO MANAGE YOUR SUBSCRIPTION GO HERE https://billing.stripe.com/p/login/9AQ4jFeRDbHTaIMfYY")
 st.write("Please watch the entirety of this video explaining the product before purchasing (https://www.youtube.com/watch?v=tF9BU7yNdDI). I am available on twitter @GumbyUD for any questions or concerns about the product.")
 st.write("Use promo code LAUNCH for just $1 for the first week!")
-
+st.write("On a CFB sized slate, it takes about 3 mins to run the draft sim (1884 sims), and about 5 mins to run 5000 instances of the projection sim.")
 
 
 st.title("GUMBY SIMS- The first publicly available contest sim tool on Underdog. Take your game to the next level by simming out the highest ROI lineups,  optimal exposure percentages, and chalkiest field combos. ")
