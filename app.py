@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 from numba import jit, prange
 from st_paywall import add_auth
+import io
+from openpyxl import load_workbook
 
 st.title("GUMBY SIMS- The first publicly available contest sim tool on Underdog. Take your game to the next level by simming out the highest ROI lineups,  optimal exposure percentages, and chalkiest field combos. ")
 
@@ -14,6 +16,20 @@ st.write("Current supported sports: NFL, CFB, PGA.")
 
 
 
+# Path to your Excel file
+sample_xlsx_path = '.xlsx'
+
+# Read the Excel file
+with open(sample_xlsx_path, 'rb') as file:
+    excel_data = file.read()
+
+# Create a download button
+st.download_button(
+    label="Blank Analysis Template",
+    data=excel_data,
+    file_name='Blank Analysis Template.xlsx',
+    mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+)
 
 
 st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
