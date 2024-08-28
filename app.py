@@ -18,8 +18,6 @@ st.write("Current supported sports: NFL, CFB, PGA.")
 add_auth(required=True)
 
 
-st.subheader("Paste your sim results and draft results into this file for more automated analysis")
-
 # Path to your Excel file
 sample_xlsx_path = 'Blank Analysis Template.xlsx'
 
@@ -34,6 +32,9 @@ st.download_button(
     file_name='Blank Analysis Template.xlsx',
     mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 )
+
+st.write("Paste your sim results and draft results into the above file for more automated analysis")
+
 
 
 st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
