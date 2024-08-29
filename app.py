@@ -321,7 +321,7 @@ if projections_file is not None and draft_results_file is not None:
 
 
 
-st.subheader("PGA Tour Championship Rd1")
+st.subheader("PGA Tour Championship Rd2")
 
 
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=1.00):
@@ -457,14 +457,14 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
     return final_results
 
 # Streamlit app
-sample_csv_path = 'PGA TOUR CHAMP RD1.csv'
+sample_csv_path = 'PGA TOUR CHAMP RD2.csv'
 with open(sample_csv_path, 'rb') as file:
     sample_csv = file.read()
 
 st.download_button(
-    label="PGA TOUR CHAMP RD1",
+    label="PGA TOUR CHAMP RD2",
     data=sample_csv,
-    file_name='PGA TOUR CHAMP RD1.csv',
+    file_name='PGA TOUR CHAMP RD2.csv',
     mime='text/csv',
 )
 
