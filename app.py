@@ -766,6 +766,7 @@ st.download_button(
     data=sample_csv,
     file_name='CFB WEEK 1 ADP TEMPLATE.csv',
     mime='text/csv',
+    key="cfb_week1_adp_template_download"
 )
 
 # File upload for ADP
