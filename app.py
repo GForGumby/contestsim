@@ -41,9 +41,7 @@ st.write("Paste your sim results and draft results into the above file for more 
 
 
 
-
-
-st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
+st.subheader("NFL BR WEEK 1")
 
 
 # Function to simulate a single draft
@@ -218,19 +216,19 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
     return final_results
 
 # Streamlit app
-sample_csv_path = 'CFB WEEK 1 ADP TEMPLATE.csv'
+sample_csv_path = 'NFL WEEK 1 ADP TEMPLATE.csv'
 with open(sample_csv_path, 'rb') as file:
     sample_csv = file.read()
 
 st.download_button(
-    label="CFB WEEK 1 ADP TEMPLATE",
+    label="NFL WEEK 1 ADP TEMPLATE",
     data=sample_csv,
-    file_name='CFB WEEK 1 ADP TEMPLATE.csv',
+    file_name='NFL WEEK 1 ADP TEMPLATE.csv',
     mime='text/csv',
 )
 
 # File upload for ADP
-adp_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
+adp_file = st.file_uploader("Upload your NFL ADP CSV file", type=["csv"])
 
 if adp_file is not None:
     df = pd.read_csv(adp_file)
@@ -270,13 +268,13 @@ if adp_file is not None:
         st.download_button(
             label="Download Draft Results",
             data=csv,
-            file_name='draft_results.csv',
+            file_name='nfl_draft_results.csv',
             mime='text/csv',
         )
 
 # File uploaders for projections and draft results
-projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv")
-draft_results_file = st.file_uploader("Choose a CSV file with draft results", type="csv")
+projections_file = st.file_uploader("Choose a CSV with NFL player projections", type="csv")
+draft_results_file = st.file_uploader("Choose a CSV file with NFL draft results", type="csv")
 
 if projections_file is not None and draft_results_file is not None:
     projections_df = pd.read_csv(projections_file)
@@ -310,8 +308,6 @@ if projections_file is not None and draft_results_file is not None:
         )
 
 
-
-st.write("Paste your sim results and draft results into the above file for more automated analysis")
 
 
 
