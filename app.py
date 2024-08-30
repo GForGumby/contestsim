@@ -578,8 +578,6 @@ if projections_file is not None and draft_results_file is not None:
 
 
 
-)
-
 st.write("Paste your sim results and draft results into the above file for more automated analysis")
 
 
