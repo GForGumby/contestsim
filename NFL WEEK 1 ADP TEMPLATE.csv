@@ -1,0 +1,406 @@
+id,name,adp,adpsd,position,team,proj,projsd
+3e5f6607-1c1b-4436-af66-995e058ab15d,Tyreek Hill,1.6,0.79632,WR,Miami Dolphins,1,1
+edd9ebf4-5f74-4e81-88e5-8dc30009f10a,CeeDee Lamb,2.6,0.94872,WR,Dallas Cowboys,1,1
+5ac101c1-c694-493c-aae5-000616d1f40c,Josh Allen,3.5,1.08075,QB,Buffalo Bills,1,1
+9cf63857-9bb3-42ea-8b62-4d71bfd7a6aa,Bijan Robinson,4.3,1.19403,RB,Atlanta Falcons,1,1
+3ab310e6-973e-4a4e-8260-2b2bffaa7016,Justin Jefferson,4.4,1.20792,WR,Minnesota Vikings,1,1
+11d71713-2fb1-452b-8c1c-099fd084426e,Ja'Marr Chase,7.1,1.56027,WR,Cincinnati Bengals,1,1
+f4fe81cb-c71d-4802-a598-a38ba2b139b5,De'Von Achane,7.4,1.59672,RB,Miami Dolphins,1,1
+d9c82ed6-0eaa-4a12-9a22-a57fabcfdf94,Jonathan Taylor,8.3,1.70283,RB,Indianapolis Colts,1,1
+b8521330-71f6-44a0-a295-344aea695423,Nico Collins,10.1,1.90047,WR,Houston Texans,1,1
+f5b7d5fa-fc64-4df5-85f5-46a5e459701d,Travis Etienne Jr.,10.6,1.95192,RB,Jacksonville Jaguars,1,1
+9c675f51-d512-41f1-a954-1ecc281447e7,Dalton Kincaid,11.3,2.02143,TE,Buffalo Bills,1,1
+5f9bdcfc-7932-41a5-bcdc-55170bf36e1f,Trey McBride,13.5,2.22075,TE,Arizona Cardinals,1,1
+7a24fae4-3082-4cf8-83de-9e08f1e18693,Mike Evans,14.2,2.27808,WR,Tampa Bay Buccaneers,1,1
+aa9af423-a6ab-44b7-9aee-a0607d2e5bdc,Marvin Harrison,15.5,2.37675,WR,Arizona Cardinals,1,1
+a1b79fd4-1efa-4b0b-bf15-f94a832be4aa,Drake London,15.9,2.40507,WR,Atlanta Falcons,1,1
+c9552f83-6382-4d6b-a798-ea90f53ae72a,C.J. Stroud,18.3,2.55483,QB,Houston Texans,1,1
+3800d26a-7598-44e1-9e87-2a46a973382b,Rachaad White,19.4,2.61192,RB,Tampa Bay Buccaneers,1,1
+f4e4d57f-b597-4e67-80c3-4a5a7014e5fe,Kenneth Walker III,20,2.64,RB,Seattle Seahawks,1,1
+8d8aa5fc-e1ca-480d-914c-d668e44300e9,Evan Engram,20.2,2.64888,TE,Jacksonville Jaguars,1,1
+cae51778-0534-4aa6-908f-26be26746ee5,Chris Olave,23.1,2.75067,WR,New Orleans Saints,1,1
+f9ff143f-8810-4fd4-b577-705d13161d1c,James Cook,23.3,2.75583,RB,Buffalo Bills,1,1
+b5532719-ef0d-4721-b42e-9088223af93a,Jaylen Waddle,24.2,2.77608,WR,Miami Dolphins,1,1
+38491e7e-551e-4815-8fa2-db2c743873ed,Kyler Murray,25,2.79,QB,Arizona Cardinals,1,1
+15b62b81-7826-48d9-ac57-82dfa66dc929,Malik Nabers,25.9,2.80107,WR,NY Giants,1,1
+eba5a07e-9b24-41cb-ade0-fdb104e5484d,Kyle Pitts,26.8,2.80728,TE,Atlanta Falcons,1,1
+a7cd9379-6dcc-459a-9607-ce3db6bcc920,Anthony Richardson,27,2.808,QB,Indianapolis Colts,1,1
+364760b2-18e8-4465-9312-0711bca2c8b0,Alvin Kamara,27.4,2.80872,RB,New Orleans Saints,1,1
+4a0e0529-8aff-461b-abc5-a02796165d8a,Davante Adams,27.8,2.80848,WR,Las Vegas Raiders,1,1
+45aea3dc-f516-429a-8438-dc5c693d7384,DK Metcalf,29.3,2.79903,WR,Seattle Seahawks,1,1
+3ef98ec8-b614-4d82-9918-307eefe081a6,D.J. Moore,30.2,2.78688,WR,Chicago Bears,1,1
+7f554391-f98f-4c1f-95be-cd5af971c1c0,Jake Ferguson,30.4,2.78352,TE,Dallas Cowboys,1,1
+2dc08a64-5384-4d1b-b918-d9fd6f84a52e,Tank Dell,31.1,2.76987,WR,Houston Texans,1,1
+ee46934b-4ad5-45a6-9d2f-6e9fb4aa03db,Joe Burrow,31.9,2.75067,QB,Cincinnati Bengals,1,1
+f71d06b6-a2cb-493d-87ce-d8b8d799f38d,James Conner,32.7,2.72763,RB,Arizona Cardinals,1,1
+3ca91ca8-1db3-4ea8-bac4-af44c4baedcc,Stefon Diggs,33.4,2.70432,WR,Houston Texans,1,1
+67ca38ff-be32-4149-abb6-4bfeabeb6932,Tee Higgins,33.6,2.69712,WR,Cincinnati Bengals,1,1
+d7da941e-da65-48b9-ac33-e01fed6acdc9,Tua Tagovailoa,33.6,2.69712,QB,Miami Dolphins,1,1
+66bd647a-d313-4732-829f-89b6708c338e,Joe Mixon,33.7,2.69343,RB,Houston Texans,1,1
+e3b5ae21-de46-431a-a819-9da92d1fbe36,Brock Bowers,33.7,2.69343,TE,Las Vegas Raiders,1,1
+e7b802d2-bf30-4e6b-af0d-cc765ccc0f6d,Dak Prescott,34.1,2.67807,QB,Dallas Cowboys,1,1
+1fadc0e1-d20f-4af6-a77d-c16a234713e0,David Njoku,34.5,2.66175,TE,Cleveland Browns,1,1
+06d7b4f5-e862-462e-9540-52896d4f7bcd,Terry McLaurin,34.6,2.65752,WR,Washington Commanders,1,1
+7cedfacb-c194-4855-a45e-fcd82c2a9b73,Raheem Mostert,34.7,2.65323,RB,Miami Dolphins,1,1
+2b0274c8-3b24-4bbe-9d9d-9b36f2fdf924,Jayden Daniels,34.9,2.64447,QB,Washington Commanders,1,1
+1a8bd309-114d-444a-b5d6-f4c433641273,Michael Pittman Jr.,34.9,2.64447,WR,Indianapolis Colts,1,1
+ae6a2d04-1191-4099-b388-6065eba22251,Aaron Jones,35.1,2.63547,RB,Minnesota Vikings,1,1
+1e516b56-c829-4ffc-937f-46706228cb2d,Amari Cooper,35.2,2.63088,WR,Cleveland Browns,1,1
+ae2d6f02-f2ed-48a7-90af-ca31146ff7be,Trevor Lawrence,35.2,2.63088,QB,Jacksonville Jaguars,1,1
+66bb321a-1761-43ba-876a-080652508762,Dalton Schultz,35.2,2.63088,TE,Houston Texans,1,1
+284dc107-c962-4fb6-bcfd-8e133a400d5c,George Pickens,35.4,2.62152,WR,Pittsburgh Steelers,1,1
+78aaa508-dc63-47dc-8b56-f33c85243fb9,Caleb Williams,35.4,2.62152,QB,Chicago Bears,1,1
+b5601f46-169f-4d5d-86e0-944230ae78b6,Khalil Shakir,35.4,2.62152,WR,Buffalo Bills,1,1
+e8dfc7c3-c83a-4ab3-862a-28a6437f3d14,Brian Thomas,35.6,2.61192,WR,Jacksonville Jaguars,1,1
+40d6e947-94d1-4ec7-945c-cf0c4ee20cee,Kirk Cousins,35.7,2.60703,QB,Atlanta Falcons,1,1
+a89cf23a-c968-4cba-bf65-210ccb68ba6e,Jerome Ford,35.7,2.60703,RB,Cleveland Browns,1,1
+4a021c23-37cc-471f-968b-06f33a0371e7,Ladd McConkey,35.7,2.60703,WR,Los Angeles Chargers,1,1
+9915a36d-6933-4c77-b7c2-f4bdbaff5d8e,Keon Coleman,35.8,2.60208,WR,Buffalo Bills,1,1
+9f839c5a-0955-422e-bcb9-bf0e3418bca2,Baker Mayfield,35.8,2.60208,QB,Tampa Bay Buccaneers,1,1
+3a30edac-e80b-46db-b413-16d8f67e6961,Tony Pollard,35.8,2.60208,RB,Tennessee Titans,1,1
+06c27c27-195e-4b94-a4ec-2ecbbbb19e82,Christian Kirk,35.8,2.60208,WR,Jacksonville Jaguars,1,1
+746e60ca-96dd-419b-bf81-3fbaa56048dd,Chris Godwin,35.8,2.60208,WR,Tampa Bay Buccaneers,1,1
+6f6f43e8-0f64-422a-bd27-dd1624894fa2,Pat Freiermuth,35.8,2.60208,TE,Pittsburgh Steelers,1,1
+b2db67c0-ea0e-4e48-9e24-afbc735864c2,Daniel Jones,35.9,2.59707,QB,NY Giants,1,1
+9740d65b-e9b7-486f-86ce-46b901d509f7,D'Andre Swift,35.9,2.59707,RB,Chicago Bears,1,1
+6de91151-31f3-418b-b730-ed9b04b49a4f,Najee Harris,35.9,2.59707,RB,Pittsburgh Steelers,1,1
+49f46ee5-74bc-4294-b0d1-75244fc3c3e5,Gus Edwards,35.9,2.59707,RB,Los Angeles Chargers,1,1
+ef77c758-ea2d-4ff3-8ccc-30b24fc9a6b6,Rhamondre Stevenson,35.9,2.59707,RB,New England Patriots,1,1
+ec5cb994-1170-4ad6-b8cf-7e86a11896b8,Cade Otton,35.9,2.59707,TE,Tampa Bay Buccaneers,1,1
+055a48d1-842b-4e7b-bead-e71f1b188c50,Diontae Johnson,35.9,2.59707,WR,Carolina Panthers,1,1
+dacef39a-dc68-4845-93d5-ed037de748a5,Courtland Sutton,35.9,2.59707,WR,Denver Broncos,1,1
+21c9a32e-2cc5-453b-bd6b-b91b18fe1ea0,Calvin Ridley,35.9,2.59707,WR,Tennessee Titans,1,1
+7422382e-440e-4b09-a909-f7e767046ded,Justin Herbert,35.9,2.59707,QB,Los Angeles Chargers,1,1
+c7b9dba9-8318-4285-b2b4-82207d57996e,Geno Smith,35.9,2.59707,QB,Seattle Seahawks,1,1
+1215b0a1-42d3-4be6-bd4d-c48ccdbafe14,Curtis Samuel,35.9,2.59707,WR,Buffalo Bills,1,1
+b3968934-341c-4707-8269-5be2061140ca,Sam Darnold,35.9,2.59707,QB,Minnesota Vikings,1,1
+ba13a6f0-fc17-4327-a18d-225b792efbbb,Keenan Allen,35.9,2.59707,WR,Chicago Bears,1,1
+4ac4752d-3183-4b6e-a042-ecefd024dfb3,Jonnu Smith,35.9,2.59707,TE,Miami Dolphins,1,1
+be86114d-807d-43c8-a530-901b8d74be3c,Chuba Hubbard,35.9,2.59707,RB,Carolina Panthers,1,1
+edfe3686-5364-44e4-a12e-7d8292db7337,Rome Odunze,35.9,2.59707,WR,Chicago Bears,1,1
+624ec9b2-cafe-4253-ac11-408c051b4f98,Zack Moss,35.9,2.59707,RB,Cincinnati Bengals,1,1
+cc1db947-9bed-4d74-b2c3-60265054705e,Jaxon Smith-Njigba,35.9,2.59707,WR,Seattle Seahawks,1,1
+fb980481-7601-4840-8cd0-9c781fde6749,Adonai Mitchell,35.9,2.59707,WR,Indianapolis Colts,1,1
+086c7fd3-7313-472c-bf6c-2ba125dc09d4,Kylen Granson,35.9,2.59707,TE,Indianapolis Colts,1,1
+e998aeca-55fc-4953-915c-69bec5e51ec7,Zach Ertz,36,2.592,TE,Washington Commanders,1,1
+b28a103f-f4c0-4ee1-bfab-7ce2d0767f7f,Zamir White,36,2.592,RB,Las Vegas Raiders,1,1
+99012b29-ead9-4aba-b68b-f26cdcc05838,Javonte Williams,36,2.592,RB,Denver Broncos,1,1
+6350dfc7-5c52-4024-82f0-ec68ff8894cd,Tyler Lockett,36,2.592,WR,Seattle Seahawks,1,1
+03ba2f68-f827-4152-b40a-3d1d6639ed85,Chase Brown,36,2.592,RB,Cincinnati Bengals,1,1
+9c643fe3-e58b-451f-a67c-620b828bd322,Michael Wilson,36,2.592,WR,Arizona Cardinals,1,1
+43cfa880-b3cb-4bd9-b1db-bec02a114821,Dawson Knox,36,2.592,TE,Buffalo Bills,1,1
+1b091c25-9021-4027-962b-ff738bd71774,Mike Gesicki,36,2.592,TE,Cincinnati Bengals,1,1
+087faa69-94e7-43ea-b7aa-bc826c2e68df,Joshua Palmer,36,2.592,WR,Los Angeles Chargers,1,1
+2dbbdcb6-bf9b-49c5-9975-d953177a2a71,Jaylen Warren,36,2.592,RB,Pittsburgh Steelers,1,1
+f9d3e357-d224-4ca9-877c-6aec2d56aa5d,Greg Dortch,36,2.592,WR,Arizona Cardinals,1,1
+87f4298f-2208-497f-873d-9ae1fa74bb0b,Cole Kmet,36,2.592,TE,Chicago Bears,1,1
+875c4e90-989a-4a28-b45f-64f2d1d372c1,Andrei Iosivas,36,2.592,WR,Cincinnati Bengals,1,1
+9cd78321-1cf7-4257-9831-b8a320123925,Theo Johnson,36,2.592,TE,NY Giants,1,1
+288c4789-634e-43e7-9b65-d68a2e866070,Deshaun Watson,36,2.592,QB,Cleveland Browns,1,1
+bcec8c78-1e6c-448e-84c2-c22581e45349,Gardner Minshew II,36,2.592,QB,Las Vegas Raiders,1,1
+7df52189-c827-47f4-8481-776eff6451e7,Bo Nix,36,2.592,QB,Denver Broncos,1,1
+9208d2fc-7853-4e83-9258-7f50a8804e93,Gabe Davis,36,2.592,WR,Jacksonville Jaguars,1,1
+6de5eb8f-c881-4364-8b2c-1449a94e1566,Hunter Henry,36,2.592,TE,New England Patriots,1,1
+4fd3b702-7f9b-4061-8e54-b7fc7f38e761,J.K. Dobbins,36,2.592,RB,Los Angeles Chargers,1,1
+d12c5900-f0c5-4fc1-8e44-e95f78816590,Greg Dulcich,36,2.592,TE,Denver Broncos,1,1
+735f908c-1c34-40a9-b28d-05d4a0a6f2ad,Derek Carr,36,2.592,QB,New Orleans Saints,1,1
+3358e0f1-ffd3-4b1f-a5f9-aeb180d0cdd5,K.J. Osborn,36,2.592,WR,New England Patriots,1,1
+6f4b702e-5612-415f-8259-caa0aa2b7cc4,Ja'Lynn Polk,36,2.592,WR,New England Patriots,1,1
+90a6bf1b-784a-4b0f-b092-d0514f0044ed,Trey Benson,36,2.592,RB,Arizona Cardinals,1,1
+f02661f9-5465-4391-b326-a4d72d0d7d7b,Will Levis,36,2.592,QB,Tennessee Titans,1,1
+da13eea1-f17a-4649-905b-8553051f8083,Bryce Young,36,2.592,QB,Carolina Panthers,1,1
+4f2037d8-d40d-4ba2-85ab-23a6dcaa6e39,Drake Maye,36,2.592,QB,New England Patriots,1,1
+f1244a0d-b853-44c2-a432-2e2393ad2d79,Russell Wilson,36,2.592,QB,Pittsburgh Steelers,1,1
+606220e7-ca92-49eb-8067-1173280551bc,Jordan Addison,36,2.592,WR,Minnesota Vikings,1,1
+c2d893dc-2b21-4e40-ae54-7ac3fc8cb589,Devin Singletary,36,2.592,RB,NY Giants,1,1
+1f2ec20c-5e16-4afb-9b76-d12cc7c94fb3,Austin Ekeler,36,2.592,RB,Washington Commanders,1,1
+375a1a21-5993-49ee-a97a-dd7b0c1b303a,DeAndre Hopkins,36,2.592,WR,Tennessee Titans,1,1
+b534b8c1-4b97-428e-b1f7-f3b9d8dbadcf,Ezekiel Elliott,36,2.592,RB,Dallas Cowboys,1,1
+fcc14dc3-6ce4-4c5c-9818-65b08236513b,Tyjae Spears,36,2.592,RB,Tennessee Titans,1,1
+93d0f0ef-b3ce-424d-86ea-a55baba371ff,Jerry Jeudy,36,2.592,WR,Cleveland Browns,1,1
+2a33cd9f-d483-40e1-9322-05d63e0e1398,Wan'Dale Robinson,36,2.592,WR,NY Giants,1,1
+316912c8-4b2f-4c15-b4ce-edf047fd9cae,Brian Robinson Jr.,36,2.592,RB,Washington Commanders,1,1
+8fae3f8c-481e-4f1a-9594-e3cfdd4ac5ed,Jakobi Meyers,36,2.592,WR,Las Vegas Raiders,1,1
+785b37d8-76f3-47dd-a66e-231db3261048,Rashid Shaheed,36,2.592,WR,New Orleans Saints,1,1
+c15f485f-0611-4ca4-8ca8-b9112b84fa8a,Jalen McMillan,36,2.592,WR,Tampa Bay Buccaneers,1,1
+20fa1d59-ab8b-4d35-895f-6d066d836920,Brandin Cooks,36,2.592,WR,Dallas Cowboys,1,1
+120feaf1-c2cc-4c08-ab59-d747c937c97f,Adam Thielen,36,2.592,WR,Carolina Panthers,1,1
+53147545-c0d6-4a58-b7a9-f6d54b1ecdfd,Josh Downs,36,2.592,WR,Indianapolis Colts,1,1
+8a2f73e1-2dc3-4de6-a591-b17b50af2fa7,Darnell Mooney,36,2.592,WR,Atlanta Falcons,1,1
+e50a8034-2328-411e-b002-938d5919dab7,DeMario Douglas,36,2.592,WR,New England Patriots,1,1
+c0f8ff15-0555-4ae8-8348-527897ca676b,Jalen Tolbert,36,2.592,WR,Dallas Cowboys,1,1
+37fe5c11-124c-4173-8ebe-0f983f123591,DJ Chark Jr.,36,2.592,WR,Los Angeles Chargers,1,1
+d929dd1d-2053-4a84-81fd-9b9ebb0c618f,Noah Fant,36,2.592,TE,Seattle Seahawks,1,1
+ccf99c86-3be1-415a-8718-35a5b7f21d64,Taysom Hill,36,2.592,QB,New Orleans Saints,1,1
+322217ad-141a-4720-a03e-457c33e8c9bd,Rico Dowdle,36,2.592,RB,Dallas Cowboys,1,1
+ab064370-06a7-4ebc-ac15-9ae60a9ef762,Zach Charbonnet,36,2.592,RB,Seattle Seahawks,1,1
+7f399fcb-373d-480e-b95b-30c1f8b4fe33,Roman Wilson,36,2.592,WR,Pittsburgh Steelers,1,1
+dc91fa8f-7c35-47bb-8410-68145080a8d8,Jonathan Mingo,36,2.592,WR,Carolina Panthers,1,1
+76896770-b21b-4fdc-8c67-2b4b43f9ddc5,Tyler Allgeier,36,2.592,RB,Atlanta Falcons,1,1
+9220507c-f504-4379-b75e-073b76157356,Treylon Burks,36,2.592,WR,Tennessee Titans,1,1
+1e052d96-67ad-4d4d-bb40-c66dee479abc,Ty Chandler,36,2.592,RB,Minnesota Vikings,1,1
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
