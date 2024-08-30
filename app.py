@@ -226,7 +226,7 @@ st.download_button(
 )
 
 # File upload for ADP
-adp_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
+adp_file = st.file_uploader("Upload your NFL ADP CSV file", type=["csv"])
 
 if adp_file is not None:
     df = pd.read_csv(adp_file)
@@ -271,8 +271,8 @@ if adp_file is not None:
         )
 
 # File uploaders for projections and draft results
-projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv")
-draft_results_file = st.file_uploader("Choose a CSV file with draft results", type="csv")
+projections_file = st.file_uploader("Choose a CSV with NFL player projections", type="csv")
+draft_results_file = st.file_uploader("Choose a CSV file with NFL draft results", type="csv")
 
 if projections_file is not None and draft_results_file is not None:
     projections_df = pd.read_csv(projections_file)
