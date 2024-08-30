@@ -309,7 +309,7 @@ if projections_file is not None and draft_results_file is not None:
 
 
 
-st.subheader("-------------------------------------------------------------------------------")
+st.subheader("------------------------------------------------------------------------------")
 
 st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
 
@@ -592,7 +592,7 @@ if projections_file is not None and draft_results_file is not None:
 
 
 
-st.subheader("-------------------------------------------------------------------------------")
+st.subheader("------------------------------------------------------------------------------")
 
 
 
