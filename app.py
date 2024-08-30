@@ -578,22 +578,6 @@ if projections_file is not None and draft_results_file is not None:
 
 
 
-
-
-
-# Path to your Excel file
-sample_xlsx_path = 'Blank Analysis Template.xlsx'
-
-# Read the Excel file
-with open(sample_xlsx_path, 'rb') as file:
-    excel_data = file.read()
-
-# Create a download button
-st.download_button(
-    label="Blank Analysis Template",
-    data=excel_data,
-    file_name='Blank Analysis Template.xlsx',
-    mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 )
 
 st.write("Paste your sim results and draft results into the above file for more automated analysis")
