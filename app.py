@@ -251,12 +251,12 @@ if adp_file is not None:
     st.write("ADP Data Preview:")
     st.dataframe(df.head())
     
-    num_simulations = st.number_input("Number of simulations", min_value=1, value=10, key="num_simulations_input")
-    num_teams = st.number_input("Number of teams", min_value=2, value=6, key="num_teams_input")
-    num_rounds = st.number_input("Number of rounds", min_value=1, value=6, key="num_rounds_input")
-    team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.99, key="team_bonus_input")
+    num_simulations = st.number_input("Number of simulations", min_value=1, value=10, key="nflnum_simulations_input")
+    num_teams = st.number_input("Number of teams", min_value=2, value=6, key="nflnum_teams_input")
+    num_rounds = st.number_input("Number of rounds", min_value=1, value=6, key="nflnum_rounds_input")
+    team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.99, key="nflteam_bonus_input")
     
-    if st.button("Run Draft Simulation", key="run_draft_sim_button"):
+    if st.button("Run Draft Simulation", key="nflrun_draft_sim_button"):
         all_drafts = run_simulations(df, num_simulations, num_teams, num_rounds, team_bonus)
         draft_results = []
         for sim_num, draft in enumerate(all_drafts):
@@ -283,12 +283,12 @@ if adp_file is not None:
             data=csv,
             file_name='nfl_draft_results.csv',
             mime='text/csv',
-            key="download_draft_results_button"
+            key="nfldownload_draft_results_button"
         )
 
 # File uploaders for projections and draft results
-projections_file = st.file_uploader("Choose a CSV with NFL player projections", type="csv", key="projections_uploader")
-draft_results_file = st.file_uploader("Choose a CSV file with NFL draft results", type="csv", key="draft_results_uploader")
+projections_file = st.file_uploader("Choose a CSV with NFL player projections", type="csv", key="nflprojections_uploader")
+draft_results_file = st.file_uploader("Choose a CSV file with NFL draft results", type="csv", key="nfldraft_results_uploader")
 
 if projections_file is not None and draft_results_file is not None:
     projections_df = pd.read_csv(projections_file)
@@ -304,9 +304,9 @@ if projections_file is not None and draft_results_file is not None:
 
     projection_lookup = dict(zip(projections_df['name'], zip(projections_df['proj'], projections_df['projsd'])))
 
-    num_simulations = st.number_input("Number of simulations to run", min_value=100, max_value=100000, value=10000, step=100, key="num_proj_simulations_input")
+    num_simulations = st.number_input("Number of simulations to run", min_value=100, max_value=100000, value=10000, step=100, key="nflnum_proj_simulations_input")
 
-    if st.button("Run Projection Simulations", key="run_proj_sim_button"):
+    if st.button("Run Projection Simulations", key="nflrun_proj_sim_button"):
         with st.spinner('Running simulations...'):
             final_results = run_parallel_simulations(num_simulations, draft_results_df, projection_lookup)
 
@@ -324,7 +324,7 @@ if projections_file is not None and draft_results_file is not None:
             data=csv,
             file_name="projection_simulation_results.csv",
             mime="text/csv",
-            key="download_proj_results_button"
+            key="nfldownload_proj_results_button"
         )
 st.subheader("------------------------------------------------------------------------------")
 
