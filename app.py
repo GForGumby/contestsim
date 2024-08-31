@@ -523,7 +523,7 @@ st.download_button(
 )
 
 # File upload for ADP
-adp_file = st.file_uploader("Upload your ADP CSV file", type=["csv"], key="adp_uploader")
+adp_file = st.file_uploader("Upload your CFB ADP CSV file", type=["csv"], key="adp_uploader")
 
 if adp_file is not None:
     df = pd.read_csv(adp_file)
