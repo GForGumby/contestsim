@@ -390,7 +390,43 @@ def generate_projection(median, std_dev):
 @jit(nopython=True)
 def get_payout(rank):
     if rank == 1:
-        return 5000.00
+        return 2500.00
+    elif rank == 2:
+        return 1750.00
+    elif rank == 3:
+        return 1000.00
+    elif rank == 4:
+        return 825.00
+    elif rank == 5:
+        return 600.00
+    elif 6 <= rank <= 7:
+        return 500.00
+    elif 8 <= rank <= 10:
+        return 400.00
+    elif 11 <= rank <= 13:
+        return 300.00
+    elif 14 <= rank <= 16:
+        return 200.00
+    elif 17 <= rank <= 20:
+        return 150.00
+    elif 21 <= rank <= 25:
+        return 100.00
+    elif 26 <= rank <= 30:
+        return 90.00
+    elif 31 <= rank <= 35:
+        return 80.00
+    elif 36 <= rank <= 40:
+        return 75.00
+    elif 41 <= rank <= 45:
+        return 60.00
+    elif 46 <= rank <= 50:
+        return 50.00
+    elif 51 <= rank <= 100:
+        return 25.00
+    elif 101 <= rank <= 400:
+        return 15.00
+    elif 401 <= rank <= 1000:
+        return 10.00
     else:
         return 0.00
 
@@ -403,8 +439,8 @@ def prepare_draft_results(draft_results_df):
         team_players = draft_results_df[draft_results_df['Team'] == team]
         for i in range(1, 7):
             player_col = f'Player_{i}_Name'
-            if player_col in team_players.columns and i <= len(team_players):
-                draft_results[idx, i - 1] = team_players.iloc[0][player_col]
+            if player_col in team_players.columns:
+                draft_results[idx, i - 1] = team_players[player_col].iloc[0]
             else:
                 draft_results[idx, i - 1] = "N/A"  # Placeholder for missing players
 
@@ -413,23 +449,31 @@ def prepare_draft_results(draft_results_df):
 def simulate_team_projections(draft_results, projection_lookup, num_simulations):
     num_teams = draft_results.shape[0]
     total_payouts = np.zeros(num_teams)
+    all_team_points = []
 
     for sim in range(num_simulations):
         total_points = np.zeros(num_teams)
+        sim_team_points = []
         for i in range(num_teams):
+            team_points = 0
             for j in range(6):  # Loop through all 6 players
                 player_name = draft_results[i, j]
                 if player_name in projection_lookup:
                     proj, projsd = projection_lookup[player_name]
                     simulated_points = generate_projection(proj, projsd)
-                    total_points[i] += simulated_points
-
+                    team_points += simulated_points
+                else:
+                    print(f"Warning: Player {player_name} not found in projections for team {i+1}")
+            total_points[i] = team_points
+            sim_team_points.append(team_points)
+        all_team_points.append(sim_team_points)
         ranks = total_points.argsort()[::-1].argsort() + 1
         payouts = np.array([get_payout(rank) for rank in ranks])
         total_payouts += payouts
 
     avg_payouts = total_payouts / num_simulations
-    return avg_payouts
+    avg_team_points = np.mean(all_team_points, axis=0)
+    return avg_payouts, avg_team_points
 
 def run_parallel_simulations(num_simulations, draft_results_df, projection_lookup):
     draft_results, teams = prepare_draft_results(draft_results_df)
@@ -437,22 +481,25 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
     all_players = [player for team in draft_results for player in team if player != 'N/A']
     filtered_projection_lookup = {player: projection_lookup[player] for player in all_players if player in projection_lookup}
     
-    avg_payouts = simulate_team_projections(draft_results, filtered_projection_lookup, num_simulations)
+    avg_payouts, avg_team_points = simulate_team_projections(draft_results, filtered_projection_lookup, num_simulations)
     
     final_results = pd.DataFrame({
         'Team': teams,
-        'Average_Payout': avg_payouts
+        'Average_Payout': avg_payouts,
+        'Average_Points': avg_team_points
     })
     
     return final_results
 
 # Streamlit app
+st.title("Fantasy Football Draft Simulator")
+
 sample_csv_path = 'CFB WEEK 1 ADP TEMPLATE.csv'
 with open(sample_csv_path, 'rb') as file:
     sample_csv = file.read()
 
 st.download_button(
-    label="CFB WEEK 1 ADP TEMPLATE",
+    label="Download CFB WEEK 1 ADP TEMPLATE",
     data=sample_csv,
     file_name='CFB WEEK 1 ADP TEMPLATE.csv',
     mime='text/csv',
@@ -460,7 +507,7 @@ st.download_button(
 )
 
 # File upload for ADP
-adp_file = st.file_uploader("Upload your ADP CSV file", type=["csv"])
+adp_file = st.file_uploader("Upload your ADP CSV file", type=["csv"], key="adp_uploader")
 
 if adp_file is not None:
     df = pd.read_csv(adp_file)
@@ -470,12 +517,12 @@ if adp_file is not None:
     st.write("ADP Data Preview:")
     st.dataframe(df.head())
     
-    num_simulations = st.number_input("Number of simulations", min_value=1, value=10)
-    num_teams = st.number_input("Number of teams", min_value=2, value=6)
-    num_rounds = st.number_input("Number of rounds", min_value=1, value=6)
-    team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.99)
+    num_simulations = st.number_input("Number of simulations", min_value=1, value=10, key="num_simulations_input")
+    num_teams = st.number_input("Number of teams", min_value=2, value=6, key="num_teams_input")
+    num_rounds = st.number_input("Number of rounds", min_value=1, value=6, key="num_rounds_input")
+    team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.99, key="team_bonus_input")
     
-    if st.button("Run Draft Simulation"):
+    if st.button("Run Draft Simulation", key="run_draft_sim_button"):
         all_drafts = run_simulations(df, num_simulations, num_teams, num_rounds, team_bonus)
         draft_results = []
         for sim_num, draft in enumerate(all_drafts):
@@ -502,11 +549,12 @@ if adp_file is not None:
             data=csv,
             file_name='draft_results.csv',
             mime='text/csv',
+            key="download_draft_results_button"
         )
 
 # File uploaders for projections and draft results
-projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv")
-draft_results_file = st.file_uploader("Choose a CSV file with draft results", type="csv")
+projections_file = st.file_uploader("Choose a CSV file with player projections", type="csv", key="projections_uploader")
+draft_results_file = st.file_uploader("Choose a CSV file with draft results", type="csv", key="draft_results_uploader")
 
 if projections_file is not None and draft_results_file is not None:
     projections_df = pd.read_csv(projections_file)
@@ -522,14 +570,19 @@ if projections_file is not None and draft_results_file is not None:
 
     projection_lookup = dict(zip(projections_df['name'], zip(projections_df['proj'], projections_df['projsd'])))
 
-    num_simulations = st.number_input("Number of simulations to run", min_value=100, max_value=100000, value=10000, step=100)
+    num_simulations = st.number_input("Number of simulations to run", min_value=100, max_value=100000, value=10000, step=100, key="num_proj_simulations_input")
 
-    if st.button("Run Projection Simulations"):
+    if st.button("Run Projection Simulations", key="run_proj_sim_button"):
         with st.spinner('Running simulations...'):
             final_results = run_parallel_simulations(num_simulations, draft_results_df, projection_lookup)
 
         st.subheader("Projection Simulation Results:")
         st.write(final_results)
+
+        # Display average points
+        st.subheader("Average Points per Team:")
+        for team, points in zip(final_results['Team'], final_results['Average_Points']):
+            st.write(f"{team}: {points:.2f}")
 
         csv = final_results.to_csv(index=False)
         st.download_button(
@@ -537,11 +590,8 @@ if projections_file is not None and draft_results_file is not None:
             data=csv,
             file_name="projection_simulation_results.csv",
             mime="text/csv",
+            key="download_proj_results_button"
         )
-
-
-
-
 
 
 
