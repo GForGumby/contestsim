@@ -44,12 +44,73 @@ st.write("Paste your sim results and draft results into the above file for more 
 st.subheader("NFL BR WEEK 1")
 
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-from numba import jit
 
-# [The simulate_draft and run_simulations functions remain unchanged]
+# Function to simulate a single draft
+def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.99):
+    df_copy = df.copy()
+    df_copy['Simulated ADP'] = np.random.normal(df_copy['adp'], df_copy['adpsd'])
+    df_copy.sort_values('Simulated ADP', inplace=True)
+    
+    teams = {f'Team {i + starting_team_num}': [] for i in range(num_teams)}
+    team_positions = {f'Team {i + starting_team_num}': {"QB": 0, "RB": 0, "WR": 0, "TE": 0, "FLEX": 0} for i in range(num_teams)}
+    teams_stack = {f'Team {i + starting_team_num}': [] for i in range(num_teams)}
+    
+    for round_num in range(num_rounds):
+        draft_order = list(range(num_teams)) if round_num % 2 == 0 else list(range(num_teams))[::-1]
+        for pick_num in draft_order:
+            if not df_copy.empty:
+                team_name = f'Team {pick_num + starting_team_num}'
+                
+                draftable_positions = []
+                if team_positions[team_name]["QB"] < 1:
+                    draftable_positions.append("QB")
+                if team_positions[team_name]["RB"] < 1:
+                    draftable_positions.append("RB")
+                if team_positions[team_name]["WR"] < 2:
+                    draftable_positions.append("WR")
+                if team_positions[team_name]["TE"] < 1:
+                    draftable_positions.append("TE")
+                if team_positions[team_name]["FLEX"] < 1 and (team_positions[team_name]["RB"] + team_positions[team_name]["WR"] < 5):
+                    draftable_positions.append("FLEX")
+                
+                df_filtered = df_copy.loc[
+                    df_copy['position'].isin(draftable_positions) | 
+                    ((df_copy['position'].isin(['RB', 'WR'])) & ('FLEX' in draftable_positions))
+                ].copy()
+                
+                if df_filtered.empty:
+                    continue
+                
+                df_filtered['Adjusted ADP'] = df_filtered.apply(
+                    lambda x: x['Simulated ADP'] * team_bonus 
+                    if x['team'] in teams_stack[team_name] else x['Simulated ADP'],
+                    axis=1
+                )
+                
+                df_filtered.sort_values('Adjusted ADP', inplace=True)
+                
+                selected_player = df_filtered.iloc[0]
+                teams[team_name].append(selected_player)
+                teams_stack[team_name].append(selected_player['team'])
+                position = selected_player['position']
+                if position in ["RB", "WR"]:
+                    if team_positions[team_name][position] < {"RB": 1, "WR": 2}[position]:
+                        team_positions[team_name][position] += 1
+                    else:
+                        team_positions[team_name]["FLEX"] += 1
+                else:
+                    team_positions[team_name][position] += 1
+                df_copy = df_copy.loc[df_copy['player_id'] != selected_player['player_id']]
+    
+    return teams
+
+def run_simulations(df, num_simulations=10, num_teams=6, num_rounds=6, team_bonus=.99):
+    all_drafts = []
+    for sim_num in range(num_simulations):
+        starting_team_num = sim_num * num_teams + 1
+        draft_result = simulate_draft(df, starting_team_num, num_teams, num_rounds, team_bonus)
+        all_drafts.append(draft_result)
+    return all_drafts
 
 @jit(nopython=True)
 def generate_projection(median, std_dev):
@@ -58,7 +119,50 @@ def generate_projection(median, std_dev):
 
 @jit(nopython=True)
 def get_payout(rank):
-    # [The payout structure remains unchanged]
+    if rank == 1:
+        return 5000.00
+    elif rank == 2:
+        return 2500.00
+    elif rank == 3:
+        return 1250.00
+    elif rank == 4:
+        return 750.00
+    elif rank == 5:
+        return 600.00
+    elif 6 <= rank <= 10:
+        return 500.00
+    elif 11 <= rank <= 15:
+        return 400.00
+    elif 16 <= rank <= 20:
+        return 300.00
+    elif 21 <= rank <= 25:
+        return 250.00
+    elif 26 <= rank <= 30:
+        return 200.00
+    elif 31 <= rank <= 35:
+        return 150.00
+    elif 36 <= rank <= 40:
+        return 100.00
+    elif 41 <= rank <= 45:
+        return 75.00
+    elif 46 <= rank <= 50:
+        return 60.00
+    elif 51 <= rank <= 55:
+        return 50.00
+    elif 56 <= rank <= 85:
+        return 40.00
+    elif 86 <= rank <= 135:
+        return 30.00
+    elif 136 <= rank <= 210:
+        return 25.00
+    elif 211 <= rank <= 325:
+        return 20.00
+    elif 326 <= rank <= 505:
+        return 15.00
+    elif 506 <= rank <= 2495:
+        return 10.00
+    else:
+        return 0.00
 
 def prepare_draft_results(draft_results_df):
     teams = draft_results_df['Team'].unique()
@@ -222,8 +326,6 @@ if projections_file is not None and draft_results_file is not None:
             mime="text/csv",
             key="download_proj_results_button"
         )
-
-
 st.subheader("------------------------------------------------------------------------------")
 
 st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
