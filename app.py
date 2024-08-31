@@ -44,7 +44,6 @@ st.write("Paste your sim results and draft results into the above file for more 
 st.subheader("NFL BR WEEK 1")
 
 
-
 # Function to simulate a single draft
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.99):
     df_copy = df.copy()
@@ -183,31 +182,23 @@ def prepare_draft_results(draft_results_df):
 def simulate_team_projections(draft_results, projection_lookup, num_simulations):
     num_teams = draft_results.shape[0]
     total_payouts = np.zeros(num_teams)
-    all_team_points = []
 
     for sim in range(num_simulations):
         total_points = np.zeros(num_teams)
-        sim_team_points = []
         for i in range(num_teams):
-            team_points = 0
             for j in range(6):  # Loop through all 6 players
                 player_name = draft_results[i, j]
                 if player_name in projection_lookup:
                     proj, projsd = projection_lookup[player_name]
                     simulated_points = generate_projection(proj, projsd)
-                    team_points += simulated_points
-                else:
-                    print(f"Warning: Player {player_name} not found in projections for team {i+1}")
-            total_points[i] = team_points
-            sim_team_points.append(team_points)
-        all_team_points.append(sim_team_points)
+                    total_points[i] += simulated_points
+
         ranks = total_points.argsort()[::-1].argsort() + 1
         payouts = np.array([get_payout(rank) for rank in ranks])
         total_payouts += payouts
 
     avg_payouts = total_payouts / num_simulations
-    avg_team_points = np.mean(all_team_points, axis=0)
-    return avg_payouts, avg_team_points
+    return avg_payouts
 
 def run_parallel_simulations(num_simulations, draft_results_df, projection_lookup):
     draft_results, teams = prepare_draft_results(draft_results_df)
@@ -215,12 +206,11 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
     all_players = [player for team in draft_results for player in team if player != 'N/A']
     filtered_projection_lookup = {player: projection_lookup[player] for player in all_players if player in projection_lookup}
     
-    avg_payouts, avg_team_points = simulate_team_projections(draft_results, filtered_projection_lookup, num_simulations)
+    avg_payouts = simulate_team_projections(draft_results, filtered_projection_lookup, num_simulations)
     
     final_results = pd.DataFrame({
         'Team': teams,
-        'Average_Payout': avg_payouts,
-        'Average_Points': avg_team_points
+        'Average_Payout': avg_payouts
     })
     
     return final_results
@@ -248,9 +238,6 @@ if adp_file is not None:
     if 'player_id' not in df.columns:
         df['player_id'] = df.index
     
-    st.write("ADP Data Preview:")
-    st.dataframe(df.head())
-    
     num_simulations = st.number_input("Number of simulations", min_value=1, value=10, key="nflnum_simulations_input")
     num_teams = st.number_input("Number of teams", min_value=2, value=6, key="nflnum_teams_input")
     num_rounds = st.number_input("Number of rounds", min_value=1, value=6, key="nflnum_rounds_input")
@@ -274,8 +261,6 @@ if adp_file is not None:
                 draft_results.append(result_entry)
         
         draft_results_df = pd.DataFrame(draft_results)
-        st.write("Draft Simulation Results:")
-        st.dataframe(draft_results_df)
         
         csv = draft_results_df.to_csv(index=False).encode('utf-8')
         st.download_button(
@@ -293,14 +278,6 @@ draft_results_file = st.file_uploader("Choose a CSV file with NFL draft results"
 if projections_file is not None and draft_results_file is not None:
     projections_df = pd.read_csv(projections_file)
     draft_results_df = pd.read_csv(draft_results_file)
-    
-    st.write("Projections and draft results loaded successfully!")
-    
-    st.subheader("Sample of loaded projections:")
-    st.write(projections_df.head())
-    
-    st.subheader("Sample of loaded draft results:")
-    st.write(draft_results_df.head())
 
     projection_lookup = dict(zip(projections_df['name'], zip(projections_df['proj'], projections_df['projsd'])))
 
@@ -309,14 +286,6 @@ if projections_file is not None and draft_results_file is not None:
     if st.button("Run Projection Simulations", key="nflrun_proj_sim_button"):
         with st.spinner('Running simulations...'):
             final_results = run_parallel_simulations(num_simulations, draft_results_df, projection_lookup)
-
-        st.subheader("Projection Simulation Results:")
-        st.write(final_results)
-
-        # Display average points
-        st.subheader("Average Points per Team:")
-        for team, points in zip(final_results['Team'], final_results['Average_Points']):
-            st.write(f"{team}: {points:.2f}")
 
         csv = final_results.to_csv(index=False)
         st.download_button(
