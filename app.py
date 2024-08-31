@@ -241,7 +241,7 @@ st.download_button(
 )
 
 # File upload for ADP
-adp_file = st.file_uploader("Upload your NFL ADP CSV file", type=["csv"], key="adp_uploader")
+adp_file = st.file_uploader("Upload your NFL ADP CSV file", type=["csv"], key="adp_nfl_uploader")
 
 if adp_file is not None:
     df = pd.read_csv(adp_file)
@@ -523,7 +523,7 @@ st.download_button(
 )
 
 # File upload for ADP
-adp_file = st.file_uploader("Upload your CFB ADP CSV file", type=["csv"], key="adp_uploader")
+adp_file = st.file_uploader("Upload your CFB ADP CSV file", type=["csv"], key="adp_cfb_uploader")
 
 if adp_file is not None:
     df = pd.read_csv(adp_file)
