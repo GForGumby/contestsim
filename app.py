@@ -192,6 +192,7 @@ def simulate_team_projections(draft_results, projection_lookup, num_simulations)
                     proj, projsd = projection_lookup[player_name]
                     simulated_points = generate_projection(proj, projsd)
                     total_points[i] += simulated_points
+                     print(f"Team {i+1} total points: {team_points}")
 
         ranks = total_points.argsort()[::-1].argsort() + 1
         payouts = np.array([get_payout(rank) for rank in ranks])
