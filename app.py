@@ -279,7 +279,7 @@ if adp_file is not None:
         
         csv = draft_results_df.to_csv(index=False).encode('utf-8')
         st.download_button(
-            label="Download Draft Results",
+            label="Download NFL Draft Results",
             data=csv,
             file_name='nfl_draft_results.csv',
             mime='text/csv',
@@ -561,9 +561,9 @@ if adp_file is not None:
         
         csv = draft_results_df.to_csv(index=False).encode('utf-8')
         st.download_button(
-            label="Download Draft Results",
+            label="Download CFB Draft Results",
             data=csv,
-            file_name='draft_results.csv',
+            file_name='cfb_draft_results.csv',
             mime='text/csv',
             key="download_draft_results_button"
         )
@@ -819,9 +819,9 @@ if adp_file is not None:
         
         csv = draft_results_df.to_csv(index=False).encode('utf-8')
         st.download_button(
-            label="Download Draft Results",
+            label="Download PGA Draft Results",
             data=csv,
-            file_name='draft_results.csv',
+            file_name='pga_draft_results.csv',
             mime='text/csv',
         )
 
