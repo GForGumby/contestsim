@@ -119,53 +119,45 @@ def generate_projection(median, std_dev):
 @jit(nopython=True)
 def get_payout(rank):
     if rank == 1:
-        return 50000.00
+        return 30000.00
     elif rank == 2:
-        return 20000.00
+        return 15000.00
     elif rank == 3:
-        return 10000.00
-    elif rank == 4:
         return 7500.00
+    elif rank == 4:
+        return 6000.00
     elif rank == 5:
         return 5000.00
     elif rank == 6:
-        return 4000.00
-    elif 7 <= rank <= 8:
+        return 4250.00
+    elif rank == 7:
+        return 3750.00
+    elif rank == 8:
+        return 3500.00
+    elif rank == 9:
+        return 3250.00
+    elif rank == 10:
         return 3000.00
-    elif 9 <= rank <= 10:
-        return 2000.00
-    elif 11 <= rank <= 12:
-        return 1500.00
-    elif 13 <= rank <= 14:
+    elif 11 <= rank <= 25:
         return 1000.00
-    elif 15 <= rank <= 17:
-        return 800.00
-    elif 18 <= rank <= 20:
-        return 600.00
-    elif 21 <= rank <= 24:
+    elif 26 <= rank <= 50:
         return 500.00
-    elif 25 <= rank <= 29:
-        return 400.00
-    elif 30 <= rank <= 37:
-        return 300.00
-    elif 38 <= rank <= 52:
-        return 200.00
-    elif 53 <= rank <= 77:
-        return 150.00
-    elif 78 <= rank <= 107:
-        return 100.00
-    elif 108 <= rank <= 147:
-        return 90.00
-    elif 148 <= rank <= 207:
-        return 80.00
-    elif 208 <= rank <= 357:
-        return 70.00
-    elif 358 <= rank <= 732:
-        return 60.00
-    elif 733 <= rank <= 1467:
-        return 50.00
-    elif 1468 <= rank <= 2467:
-        return 40.00
+    elif 51 <= rank <= 100:
+        return 125.00
+    elif 101 <= rank <= 200:
+        return 55.00
+    elif 201 <= rank <= 500:
+        return 35.00
+    elif 501 <= rank <= 1000:
+        return 25.00
+    elif 1001 <= rank <= 2000:
+        return 20.00
+    elif 2001 <= rank <= 3000:
+        return 15.00
+    elif 3001 <= rank <= 7500:
+        return 12.00
+    elif 7501 <= rank <= 14250:
+        return 10.00
     else:
         return 0.00
         
