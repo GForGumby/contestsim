@@ -17,20 +17,21 @@ st.write("Current supported sports: NFL, CFB, PGA.")
 
 add_auth(required=True)
 
-# Define the path to your Excel file
-sample_xlsx_path = 'Blank Analysis Template.xlsx'
+# Define the name of your Excel file
+excel_file_name = 'Blank Analysis Template.xlsx'
 
-# Check if the file exists
-if os.path.exists(sample_xlsx_path):
-    with open(sample_xlsx_path, 'rb') as file:
-        sample_xlsx = file.read()
-
+# Attempt to read the Excel file
+try:
+    df = pd.read_excel(excel_file_name)
+    
+    # Create a download button
     st.download_button(
-        label="Blank Analysis Template",
-        data=sample_xlsx,
-        file_name='Blank Analysis Template.xlsx',
+        label="Download Blank Analysis Template",
+        data=df.to_excel(index=False),
+        file_name=excel_file_name,
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     )
+    st.success(f"'{excel_file_name}' is ready for download!")
 
 st.write("Paste your sim results and draft results into the above file for more automated analysis")
 
