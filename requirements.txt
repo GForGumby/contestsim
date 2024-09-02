@@ -6,3 +6,4 @@ scipy
 stripe
 st-paywall
 openpyxl
+os
