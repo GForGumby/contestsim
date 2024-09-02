@@ -214,7 +214,7 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
     return final_results
 
 # Streamlit app
-st.title("NFL Fantasy Football Draft Simulator")
+st.title("NFL Fantasy Football Custom Draft Simulator")
 
 sample_csv_path = 'NFL WEEK 1 ADP TEMPLATE.csv'
 with open(sample_csv_path, 'rb') as file:
