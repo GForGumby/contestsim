@@ -491,7 +491,7 @@ if adp_file is not None:
     st.dataframe(df.head())
     
     num_simulations = st.number_input("Number of simulations", min_value=1, value=10, key="num_simulations_input")
-    num_teams = st.number_input("Number of teams", min_value=2, value=6, key="num_teams_input")
+    num_teams = st.number_input("Number of teams", min_value=2, value=12, key="num_teams_input")
     num_rounds = st.number_input("Number of rounds", min_value=1, value=6, key="num_rounds_input")
     team_bonus = st.number_input("Team stacking bonus", min_value=0.0, value=0.99, key="team_bonus_input")
     
