@@ -24,13 +24,16 @@ sample_xlsx_path = 'Blank Analysis Template.xlsx'
 with open(sample_xlsx_path, 'rb') as file:
     excel_data = file.read()
 
-# Create a download button
-st.download_button(
-    label="Blank Analysis Template",
-    data=excel_data,
-    file_name='Blank Analysis Template.xlsx',
-    mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-)
+excel_file_path = get_file_path("Week 1 Analysis.xlsx")
+if os.path.exists(excel_file_path):
+    excel_file_size = get_file_size(excel_file_path)
+    with open(excel_file_path, "rb") as file:
+        st.download_button(
+            label="Download Analysis File",
+            data=file,
+            file_name="Week 1 Analysis.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
 st.write("Paste your sim results and draft results into the above file for more automated analysis")
 
