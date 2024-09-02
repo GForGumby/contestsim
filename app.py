@@ -43,6 +43,26 @@ st.write("Paste your sim results and draft results into the above file for more 
 
 st.subheader("NFL BR WEEK 1")
 
+st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 9/2)!")
+
+if st.button('Download CSV'):
+    st.download_button(
+        label="Draft Results Week 1",
+        data=download_file(df, 'csv'),
+        file_name="Draft Results Week 1.csv",
+        mime="text/csv"
+    )
+
+if st.button('Download Excel'):
+    st.download_button(
+        label="Draft EV Analysis Week 1",
+        data=download_file(df, 'excel'),
+        file_name="Week 1 Analysis.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+
+
 
 # Function to simulate a single draft
 def simulate_draft(df, starting_team_num, num_teams=6, num_rounds=6, team_bonus=.99):
