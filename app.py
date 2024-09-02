@@ -10,9 +10,9 @@ st.title("GUMBY SIMS- The first publicly available contest sim tool on Underdog.
 
 st.write("TO MANAGE YOUR SUBSCRIPTION GO HERE https://billing.stripe.com/p/login/9AQ4jFeRDbHTaIMfYY")
 st.write("Please watch the entirety of this video explaining the product before purchasing (https://www.youtube.com/watch?v=tF9BU7yNdDI). I am available on twitter @GumbyUD for any questions or concerns about the product.")
-st.write("On a CFB sized slate, it takes about 3 mins to run the draft sim (1884 sims), and about 5 mins to run 5000 instances of the projection sim.")
+st.write("On a Dawg Bowl sized slate, it takes about 2 mins to run the draft sim, and about 5 mins to run 5000 instances of the projection sim.")
 st.write("For the team stacking bonus, use .99 if you want stack frequency to mimic real drafts. Use .98 if you want slightly more, and 1.00 for no stacking. The lower it is the more frequent stacks are in your field of lineups. I wouldn't make it lower than .95 except for MLB, which I am currently still testing.") 
-st.write("Current supported sports: NFL, CFB, PGA.")
+st.write("Current supported sports: NFL main BR, Dawg Bowl.")
 
 
 add_auth(required=True)
@@ -330,7 +330,7 @@ if projections_file is not None and draft_results_file is not None:
         )
 st.subheader("------------------------------------------------------------------------------")
 
-st.subheader("COLLEGE FOOTBALL WEEK 1 BR")
+st.subheader("Dawg Bowl Week 1")
 
 
 # Function to simulate a single draft
@@ -408,43 +408,11 @@ def generate_projection(median, std_dev):
 @jit(nopython=True)
 def get_payout(rank):
     if rank == 1:
-        return 2500.00
+        return 10000.00
     elif rank == 2:
-        return 1750.00
+        return 10000.00
     elif rank == 3:
-        return 1000.00
-    elif rank == 4:
-        return 825.00
-    elif rank == 5:
-        return 600.00
-    elif 6 <= rank <= 7:
-        return 500.00
-    elif 8 <= rank <= 10:
-        return 400.00
-    elif 11 <= rank <= 13:
-        return 300.00
-    elif 14 <= rank <= 16:
-        return 200.00
-    elif 17 <= rank <= 20:
-        return 150.00
-    elif 21 <= rank <= 25:
-        return 100.00
-    elif 26 <= rank <= 30:
-        return 90.00
-    elif 31 <= rank <= 35:
-        return 80.00
-    elif 36 <= rank <= 40:
-        return 75.00
-    elif 41 <= rank <= 45:
-        return 60.00
-    elif 46 <= rank <= 50:
-        return 50.00
-    elif 51 <= rank <= 100:
-        return 25.00
-    elif 101 <= rank <= 400:
-        return 15.00
-    elif 401 <= rank <= 1000:
-        return 10.00
+        return 10000.00
     else:
         return 0.00
 
@@ -512,20 +480,20 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
 # Streamlit app
 st.title("Fantasy Football Draft Simulator")
 
-sample_csv_path = 'CFB WEEK 1 ADP TEMPLATE.csv'
+sample_csv_path = 'NFL Week 1 ADP Template.csv'
 with open(sample_csv_path, 'rb') as file:
     sample_csv = file.read()
 
 st.download_button(
-    label="Download CFB WEEK 1 ADP TEMPLATE",
+    label="Download NFL WEEK 1 ADP TEMPLATE",
     data=sample_csv,
-    file_name='CFB WEEK 1 ADP TEMPLATE.csv',
+    file_name='NFL WEEK 1 ADP TEMPLATE.csv',
     mime='text/csv',
-    key="cfb_week1_adp_template_download"
+    key="db_week1_adp_template_download"
 )
 
 # File upload for ADP
-adp_file = st.file_uploader("Upload your CFB ADP CSV file", type=["csv"], key="adp_cfb_uploader")
+adp_file = st.file_uploader("Upload your NFL ADP CSV file", type=["csv"], key="adp_db_uploader")
 
 if adp_file is not None:
     df = pd.read_csv(adp_file)
@@ -563,9 +531,9 @@ if adp_file is not None:
         
         csv = draft_results_df.to_csv(index=False).encode('utf-8')
         st.download_button(
-            label="Download CFB Draft Results",
+            label="Download DB Draft Results",
             data=csv,
-            file_name='cfb_draft_results.csv',
+            file_name='db_draft_results.csv',
             mime='text/csv',
             key="download_draft_results_button"
         )
