@@ -60,12 +60,13 @@ excel_file_name = 'Week 1 Analysis.xlsx'
 
 # Attempt to read the Excel file
 try:
-    df = pd.read_excel(excel_file_name)
+    with open(excel_file_name, "rb") as file:
+        excel_data = file.read()
     
     # Create a download button
     st.download_button(
-        label="Week 1 Analysis",
-        data=df.to_excel(index=False),
+        label="Download Week 1 Analysis 9/2 Update",
+        data=excel_data,
         file_name=excel_file_name,
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     )
