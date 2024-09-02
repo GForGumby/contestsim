@@ -472,7 +472,6 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
     final_results = pd.DataFrame({
         'Team': teams,
         'Average_Payout': avg_payouts,
-        'Average_Points': avg_team_points
     })
     
     return final_results
@@ -553,11 +552,7 @@ if projections_file is not None and draft_results_file is not None:
         st.subheader("Projection Simulation Results:")
         st.write(final_results)
 
-        # Display average points
-        st.subheader("Average Points per Team:")
-        for team, points in zip(final_results['Team'], final_results['Average_Points']):
-            st.write(f"{team}: {points:.2f}")
-
+       
         csv = final_results.to_csv(index=False)
         st.download_button(
             label="Download Projection Results as CSV",
