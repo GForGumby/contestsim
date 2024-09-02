@@ -24,14 +24,14 @@ sample_xlsx_path = 'Blank Analysis Template.xlsx'
 with open(sample_xlsx_path, 'rb') as file:
     excel_data = file.read()
 
-excel_file_path = get_file_path("Week 1 Analysis.xlsx")
+excel_file_path = get_file_path("Blank Analysis Template.xlsx")
 if os.path.exists(excel_file_path):
     excel_file_size = get_file_size(excel_file_path)
     with open(excel_file_path, "rb") as file:
         st.download_button(
             label="Download Analysis File",
             data=file,
-            file_name="Week 1 Analysis.xlsx",
+            file_name="Blank Analysis Template.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
 
@@ -48,14 +48,23 @@ st.subheader("NFL BR WEEK 1")
 
 st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 9/2)!")
 
+# Path to your Excel file
+sample_xlsx_path = 'Week 1 Analysis.xlsx'
 
-if st.button('Download Excel'):
-    st.download_button(
-        label="Draft EV Analysis Week 1",
-        data=download_file(df, 'excel'),
-        file_name="Week 1 Analysis.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+# Read the Excel file
+with open(sample_xlsx_path, 'rb') as file:
+    excel_data = file.read()
+
+excel_file_path = get_file_path("Week 1 Analysis.xlsx")
+if os.path.exists(excel_file_path):
+    excel_file_size = get_file_size(excel_file_path)
+    with open(excel_file_path, "rb") as file:
+        st.download_button(
+            label="Download Analysis File",
+            data=file,
+            file_name="Week 1 Analysis.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
 
 
