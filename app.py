@@ -45,13 +45,6 @@ st.subheader("NFL BR WEEK 1")
 
 st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 9/2)!")
 
-if st.button('Download CSV'):
-    st.download_button(
-        label="Draft Results Week 1",
-        data=download_file(df, 'csv'),
-        file_name="Draft Results Week 1.csv",
-        mime="text/csv"
-    )
 
 if st.button('Download Excel'):
     st.download_button(
