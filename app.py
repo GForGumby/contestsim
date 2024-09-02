@@ -480,14 +480,14 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
 # Streamlit app
 st.title("Fantasy Football Draft Simulator")
 
-sample_csv_path = 'NFL Week 1 ADP Template.csv'
+sample_csv_path = 'NFL Week 1 ADP Template DB.csv'
 with open(sample_csv_path, 'rb') as file:
     sample_csv = file.read()
 
 st.download_button(
-    label="Download NFL WEEK 1 ADP TEMPLATE",
+    label="Download NFL WEEK 1 ADP TEMPLATE DB",
     data=sample_csv,
-    file_name='NFL WEEK 1 ADP TEMPLATE.csv',
+    file_name='NFL WEEK 1 ADP TEMPLATE DB.csv',
     mime='text/csv',
     key="db_week1_adp_template_download"
 )
