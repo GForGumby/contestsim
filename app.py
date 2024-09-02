@@ -33,7 +33,6 @@ try:
     )
     st.success(f"'{excel_file_name}' is ready for download!")
 
-st.write("Paste your sim results and draft results into the above file for more automated analysis")
 
 
 
