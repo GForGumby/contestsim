@@ -5,6 +5,7 @@ from numba import jit, prange
 from st_paywall import add_auth
 import io
 from openpyxl import load_workbook
+import os
 
 st.title("GUMBY SIMS- The first publicly available contest sim tool on Underdog. Take your game to the next level by simming out the highest ROI lineups,  optimal exposure percentages, and chalkiest field combos. ")
 
