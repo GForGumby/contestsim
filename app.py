@@ -32,11 +32,17 @@ try:
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     )
     st.success(f"'{excel_file_name}' is ready for download!")
+except FileNotFoundError:
+    st.error(f"Error: The file '{excel_file_name}' was not found.")
+    st.info("Please make sure the file is in the same directory as your Streamlit app.")
+except Exception as e:
+    st.error(f"An error occurred while reading the file: {str(e)}")
 
 
 
 
 
+st.write("Paste your sim results and draft results into the above file for more automated analysis")
 
 
 
