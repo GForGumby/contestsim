@@ -51,20 +51,26 @@ st.subheader("NFL BR WEEK 1")
 
 st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 9/2)!")
 
-# Define the path to your Excel file
-sample_xlsx_path = 'Week 1 Analysis.xlsx'
+# Define the name of your Excel file
+excel_file_name = 'Week 1 Analysis.xlsx'
 
-# Check if the file exists
-if os.path.exists(sample_xlsx_path):
-    with open(sample_xlsx_path, 'rb') as file:
-        sample_xlsx = file.read()
-
+# Attempt to read the Excel file
+try:
+    df = pd.read_excel(excel_file_name)
+    
+    # Create a download button
     st.download_button(
         label="Week 1 Analysis",
-        data=sample_xlsx,
-        file_name='Week 1 Analysis.xlsx',
+        data=df.to_excel(index=False),
+        file_name=excel_file_name,
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     )
+    st.success(f"'{excel_file_name}' is ready for download!")
+except FileNotFoundError:
+    st.error(f"Error: The file '{excel_file_name}' was not found.")
+    st.info("Please make sure the file is in the same directory as your Streamlit app.")
+except Exception as e:
+    st.error(f"An error occurred while reading the file: {str(e)}")
 
 
 
