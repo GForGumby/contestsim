@@ -65,7 +65,7 @@ try:
     
     # Create a download button
     st.download_button(
-        label="Download Week 1 Analysis 9/2 Update",
+        label="Download Week 1 Analysis 9/7 Update",
         data=excel_data,
         file_name=excel_file_name,
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
