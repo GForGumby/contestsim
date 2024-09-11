@@ -9,7 +9,7 @@ from openpyxl import load_workbook
 st.title("GUMBY SIMS- The first publicly available contest sim tool on Underdog. Take your game to the next level by simming out the highest ROI lineups,  optimal exposure percentages, and chalkiest field combos. ")
 
 st.write("TO MANAGE YOUR SUBSCRIPTION GO HERE https://billing.stripe.com/p/login/9AQ4jFeRDbHTaIMfYY")
-st.write("Please watch the entirety of this video explaining the product before purchasing (https://www.youtube.com/watch?v=tF9BU7yNdDI). I am available on twitter @GumbyUD for any questions or concerns about the product.")
+st.write("Please watch the entirety of this video explaining the product before purchasing (https://www.youtube.com/watch?v=3jrnl_yYkXs). I am available on twitter @GumbyUD for any questions or concerns about the product.")
 st.write("On a Dawg Bowl sized slate, it takes about 2 mins to run the draft sim, and about 5 mins to run 5000 instances of the projection sim.")
 st.write("For the team stacking bonus, use .99 if you want stack frequency to mimic real drafts. Use .98 if you want slightly more, and 1.00 for no stacking. The lower it is the more frequent stacks are in your field of lineups. I wouldn't make it lower than .95 except for MLB, which I am currently still testing.") 
 st.write("Current supported sports: NFL main BR, Dawg Bowl.")
