@@ -256,11 +256,11 @@ with open(sample_csv_path, 'rb') as file:
     sample_csv = file.read()
 
 st.download_button(
-    label="Download NFL WEEK 1 ADP TEMPLATE",
+    label="Download NFL WEEK 2 ADP TEMPLATE",
     data=sample_csv,
-    file_name='NFL WEEK 1 ADP TEMPLATE.csv',
+    file_name='NFL WEEK 2 ADP TEMPLATE.csv',
     mime='text/csv',
-    key="nfl_week1_adp_template_download"
+    key="nfl_week2_adp_template_download"
 )
 
 # File upload for ADP
