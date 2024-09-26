@@ -51,12 +51,12 @@ st.write("Paste your sim results and draft results into the above file for more 
 
 
 
-st.subheader("NFL BR WEEK 3")
+st.subheader("NFL BR WEEK 4")
 
-st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 9/14)!")
+st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 9/25)!")
 
 # Define the name of your Excel file
-excel_file_name = 'Week 3 Analysis.xlsx'
+excel_file_name = 'Week 4 Analysis.xlsx'
 
 # Attempt to read the Excel file
 try:
@@ -65,7 +65,7 @@ try:
     
     # Create a download button
     st.download_button(
-        label="Download Week 3 Analysis 9/19 Update",
+        label="Download Week 4 Analysis 9/25 Update",
         data=excel_data,
         file_name=excel_file_name,
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -251,14 +251,14 @@ def run_parallel_simulations(num_simulations, draft_results_df, projection_looku
 # Streamlit app
 st.title("NFL Fantasy Football Custom Draft Simulator")
 
-sample_csv_path = 'NFL WEEK 1 ADP TEMPLATE.csv'
+sample_csv_path = 'NFL WEEK 4 ADP TEMPLATE.csv'
 with open(sample_csv_path, 'rb') as file:
     sample_csv = file.read()
 
 st.download_button(
-    label="Download NFL WEEK 2 ADP TEMPLATE",
+    label="Download NFL WEEK 4 ADP TEMPLATE",
     data=sample_csv,
-    file_name='NFL WEEK 2 ADP TEMPLATE.csv',
+    file_name='NFL WEEK 4 ADP TEMPLATE.csv',
     mime='text/csv',
     key="nfl_week2_adp_template_download"
 )
