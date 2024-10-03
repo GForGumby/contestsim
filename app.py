@@ -53,7 +53,7 @@ st.write("Paste your sim results and draft results into the above file for more 
 
 st.subheader("NFL BR WEEK 5")
 
-st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 9/25)!")
+st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 10/3)!")
 
 # Define the name of your Excel file
 excel_file_name = 'Week 5 Analysis.xlsx'
