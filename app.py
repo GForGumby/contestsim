@@ -332,6 +332,31 @@ st.subheader("------------------------------------------------------------------
 
 st.subheader("NFL Post Contest Sim Data")
 
+
+st.write("Week 5")
+
+# Define the name of your Excel file
+excel_file_name = 'Week 5 Post Contest Sim.xlsx'
+
+# Attempt to read the Excel file
+try:
+    with open(excel_file_name, "rb") as file:
+        excel_data = file.read()
+    
+    # Create a download button
+    st.download_button(
+        label="Download Week 5 Post Contest Sim",
+        data=excel_data,
+        file_name=excel_file_name,
+        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    )
+    st.success(f"'{excel_file_name}' is ready for download!")
+except FileNotFoundError:
+    st.error(f"Error: The file '{excel_file_name}' was not found.")
+    st.info("Please make sure the file is in the same directory as your Streamlit app.")
+except Exception as e:
+    st.error(f"An error occurred while reading the file: {str(e)}")
+
 st.write("Week 4")
 
 # Define the name of your Excel file
