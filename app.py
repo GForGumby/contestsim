@@ -51,7 +51,7 @@ st.write("Paste your sim results and draft results into the above file for more 
 
 
 
-st.subheader("NFL BR WEEK 7")
+st.subheader("NFL BR WEEK 8")
 
 st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 10/3)!")
 
@@ -65,7 +65,7 @@ try:
     
     # Create a download button
     st.download_button(
-        label="Download Week 7 Analysis 10/18 Update",
+        label="Download Week 8 Analysis 10/26 Update",
         data=excel_data,
         file_name=excel_file_name,
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
