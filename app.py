@@ -56,7 +56,7 @@ st.subheader("NFL BR WEEK 8")
 st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 10/3)!")
 
 # Define the name of your Excel file
-excel_file_name = 'Week 7 Analysis.xlsx'
+excel_file_name = 'Week 8 Analysis.xlsx'
 
 # Attempt to read the Excel file
 try:
