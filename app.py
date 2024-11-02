@@ -51,12 +51,12 @@ st.write("Paste your sim results and draft results into the above file for more 
 
 
 
-st.subheader("NFL BR WEEK 8")
+st.subheader("NFL BR WEEK 9")
 
 st.write("If you prefer to use my already completed drafts, download the draft results and analysis here (updated 10/3)!")
 
 # Define the name of your Excel file
-excel_file_name = 'Week 8 Analysis.xlsx'
+excel_file_name = 'Week 9 Analysis.xlsx'
 
 # Attempt to read the Excel file
 try:
@@ -65,7 +65,7 @@ try:
     
     # Create a download button
     st.download_button(
-        label="Download Week 8 Analysis 10/26 Update",
+        label="Download Week 9 Analysis 11/2 Update",
         data=excel_data,
         file_name=excel_file_name,
         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
